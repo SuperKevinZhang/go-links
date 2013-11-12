@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<!--
+
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.theme-1.3.2.css">
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.structure-1.3.2.css">
+	
+		<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.3.2.css">
+        <link rel="stylesheet" type="text/css" href="js/jqplot/jquery.jqplot.min.css">
+		<script type="text/javascript" src="js/lib/src/jquery.js"></script>
+        
+    	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    
+        <script ype="text/javascript" src="js/loadjs.js"></script>
+        
+        <script src="js/app/src/login.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/lib/src/iscroll.js"></script>
+
+        <script type="text/javascript" src="js/lib/src/jquery.mobile-1.3.2.js"></script>
+         <script ype="text/javascript" src="js/smart_mobile.js"></script>
+         
+    <script type="text/javascript" charset="utf-8">
+ 	
+	var pictureSource;   // picture source
+    var destinationType; // sets the format of returned value
+
+    // Wait for device API libraries to load
+    //
+    document.addEventListener("deviceready",onDeviceReady,false);
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+        pictureSource=navigator.camera.PictureSourceType;
+        destinationType=navigator.camera.DestinationType;
+    }
+    // Called when a photo is successfully retrieved
+    //
+    function onPhotoURISuccess(imageURI) {
+      // Uncomment to view the image file URI
+      // console.log(imageURI);
+
+      // Get image handle
+      //
+      var smallImage = document.getElementById('smallImage');
+
+      // Unhide image elements
+      //
+      smallImage.style.display = 'block';
+
+      // Show the captured photo
+      // The inline CSS rules are used to resize the image
+      //
+      smallImage.src = imageURI;
+	  //file=imageURI;
+	  uploadimage(imageURI);
+    }
+
+    // A button will call this function
+    //
+    function capturePhoto() {
+      // Take picture using device camera and retrieve image as base64-encoded string
+      navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 25,
+        destinationType: destinationType.FILE_URI });
+    }
+
+    // A button will call this function
+    //
+    function getPhoto(source) {
+      // Retrieve image file location from specified source
+      navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 25,
+        destinationType: destinationType.FILE_URI,
+        sourceType: source });
+    }
+
+    // Called if something bad happens.
+    //
+    function onFail(message) {
+      //alert('上传照片失败: ' + message);
+	  console.log('选择照片: ' + message);
+    }
+	
+	 // 显示上传进度
+    function showUploadingProgress( progressEvt ){
+        if( progressEvt.lengthComputable ){
+            navigator.notification.progressValue( Math.round( ( progressEvt.loaded / progressEvt.total ) * 100) );
+        }
+    }
+	 
+		
+	//参数：ID，不是gameid
+	function uploadimage(fileURI){
+		
+		var win = function(r) {
+		console.log("Code = " + r.responseCode);
+		console.log("Response = " + r.response);
+		console.log("Sent = " + r.bytesSent);
+		om.hideloading();
+		}
+		
+		var fail = function(error) {
+			alert("An error has occurred: Code = " + error.code);
+			console.log("upload error source " + error.source);
+			console.log("upload error target " + error.target);
+			om.showloading("上传照片失败",true);
+
+		}
+		
+		//fileURI =  largeImage.src;
+		var options = new FileUploadOptions();
+		options.fileKey="file";
+		options.fileName=fileURI.substr(fileURI.lastIndexOf('/')+1);
+		//options.mimeType="image/jpeg";
+		options.mimeType="multipart/form-data";//multipart/form-data
+		console.log(options.fileName);
+		/*var params = new Object();
+		params.value1 = "test";
+		params.value2 = "param";*/
+		
+		//options.params = params;
+		
+		userName = window.localStorage.getItem("name");
+		id = window.localStorage.getItem("gameDetail_id");
+		imageName =options.fileName;//id+"_"+userName+"_"+Number(new Date())+".jpeg";
+		var ft = new FileTransfer();
+		// 上传回调
+        //ft.onprogress = showUploadingProgress;
+		//navigator.notification.progressStart("", "当前上传进度");
+
+		 url=om.pubUrl()+"UploadImagePost/"+userName+"/"+id+"/utf-8?filename="+imageName;
+		 console.log("开始上传url:"+url);
+		 om.showloading("正在上传照片，请稍等……");
+
+		 res = ft.upload(fileURI, encodeURI(url), win, fail, options);
+	}
+    </script>
+
+         <script type="text/javascript">
+        	om.init();
+		</script>
+    <title>假日围棋社</title>
+    </head>
+    <body>
+ 	 <div style="visibility:hidden" id="omParams"></div>
+      <div  data-role="page"  data-control-title="login" id="login_page" style="background-image:url(img/bg.gif)" >
+      <div data-role="content" style="padding: 7% ">
+          <div style="" data-controltype="image">
+              <img style="width: 100px; height: 100px" src="img/logo.png">
+          </div>
+          <h1>
+              假日围棋社
+          </h1>
+            <div class="login">
+                        <p>
+                            <input  class="inputstyle" style="padding: 10px 20px" type="text" autocomplete="on" id="txtName" name="txtName" value="CGF00"	placeholder="请输入用户名" /><i id="i_n" class="icon icon-user"></i>
+                        </p>
+                        <p>
+                            <input class="inputstyle"  style="padding: 10px 20px" type="password" autocomplete="on" id="txtPs" name="txtPs"
+                                placeholder="请输入密码" /><i id="i_m"  class="icon icon-lock"></i>
+                        </p>
+                       
+
+                    </div>
+  <div data-role="fieldcontain" data-controltype="textinput">
+            <a data-role="button" id="login_login" name="login_login"  href="#"  data-transition="slide" data-icon="arrow-r" data-iconpos="right">
+              登录
+          </a>
+      </div>
+    
+  </div>
+ </div>
+ <script src="js/jqplot/jquery.jqplot.min.js"></script>
+<script src="js/jqplot/jqplot.dateAxisRenderer.min.js"></script>
+<script src="js/jqplot/jqplot.logAxisRenderer.min.js"></script>
+<script src="js/jqplot/jqplot.canvasTextRenderer.min.js"></script>
+<script src="js/jqplot/jqplot.canvasAxisTickRenderer.min.js"></script>
+<script src="js/jqplot/jqplot.cursor.min.js"></script>
+<script src="js/jqplot/jqplot.pointLabels.min.js"></script>
+<script src="js/jqplot/jqplot.highlighter.min.js"></script>
+<script type="text/javascript">
+	app.initialize();
+</script>
+
+    </body>
+</html>

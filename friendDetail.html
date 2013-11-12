@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<head>
+<title>假日围棋社t</title>
+	
+</head>
+
+<body>
+<div data-theme="e" id="friendDetail_page" data-role="page" data-add-back-btn="true" >
+	<div data-role="header"  data-position="fixed">
+        <a href="#" id ="friendDetail_back" data-icon="back"  class="ui-btn-left">返回</a>
+    	<h3>棋友明细</h3>
+    </div>
+    <div data-role="content">
+    	<div class="ui-grid-a" id="gameInfo">
+        	<div class="ui-block-a">
+               
+                <p ><strong id="fd_p_account"></strong></p>
+                <p><strong>个人信息</strong></p>
+                    <ul id="fd_ul_personInfo">
+                        <li  id="fd_li_gender"></li>
+                        <li id="fd_li_grade"></li>
+                        <li id="fd_li_integral"></li>
+                        <li id="fd_li_gamecount"></li>
+                    </ul>
+             </div>
+             <div class="ui-block-b">
+             <br>
+             <br>
+              <h1 id="fd_h_username"></h1>
+             <!--	<p><img src="../res/icon/ios/person.jpg" id="img_person" width="100" height="100"/></p>-->
+             </div>
+        </div>
+        
+        <hr/>
+        
+        <div  id="fd_contactInfo" style="text-align:left">       	
+        	<h2>联系方式</h2>
+            <a href="#" id="fd_a_tel" data-role="button" ><i class="icon-phone pull-left" id="fd_i_tel"></i></a>
+            <a href="#" id="fd_a_email" data-role="button" ><i class="icon-envelope pull-left" id="fd_i_email"></i></a> 
+        </div>
+        
+        <hr/>
+        
+        <div id="fd_gamePK">
+        	<h2>PK胜算</h2>
+<!--            <label for="fd_Handicap" class="select">棋份:</label>
+-->            <select name="fd_Handicap" id="fd_Handicap" data-native-menu="false">
+                <option>棋份:</option>
+                <option value="让子">让子</option>
+                <option value="让先">让先</option>
+                <option value="分先">分先</option>
+            </select>
+        	<a id="fd_a_gamePK" href="#" data-role="button" data-icon="star" > 
+            	<span class="ui-btn-inner ui-btn-corner-all">
+    				<span class="ui-btn-text" id="df_btn_text"></span>
+  				</span>
+  			</a>
+        </div>
+        <div>
+			<ul data-theme="c" data-role="listview" data-inset="true" id="fd_list_PKResult">
+        	</ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>
