@@ -112,7 +112,7 @@ $(function(){
 			friend.btnsearch($("#gradeFrom").val(),$("#gradeTo").val(),"search");
 	});
 	//bind showmore button click enent
-	$("#showmore").bind("vclick",function(e,ui){
+	$("#showmore").bind("click",function(e,ui){
 			friend.btnsearch($("#gradeFrom").val(),$("#gradeTo").val(),"showmore");
 	});
 		

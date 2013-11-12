@@ -31,15 +31,19 @@ mygame.searchGame=function(pageIndex){
 					// iterate the data
 					$.each(returnList,function(index,value){
 						// game result
-						var gameResult="胜";
+						var gameResult="";
 						
-					    if(value.Score<0)
+					    if(value.WinFlag=="0")
 						{
-							gameResult="负";
+							gameResult="平";
 						}
-						else if(value.Score==0)
+						else if(value.WinFlag=="-1")
 						{
-							gameResult="平";	
+							gameResult="负";	
+						}
+						else if(value.WinFlag=="1")
+						{
+							gameResult="胜";
 						}
 						
 						// score reduce
@@ -49,18 +53,20 @@ mygame.searchGame=function(pageIndex){
 						output+= "<li><a class='myGame_a' onclick=\"om.changeHashPage('gameDetail.html',{id:'"+value.Id+"',winflag:'"+value.WinFlag+"'})\" href='#' id='a_game' >";
 						
 						output+=" <img src='img/game_96.png'  class='list_image'>"
-						output+="<h2  class='detail_name'>"+value.OpponentName +"</h2>";
-						output+="<p>对局结果：<strong style='color:red'>"+gameResult+"</strong></p>";
+						output+="<h2  class='detail_name'>"+value.OpponentName+"</h2>";
+						output+="<h2  class='detail_name' >"+value.Opponent+"</h2>";
+						output+="<p><strong style='color:red'>结果:"+gameResult+"   积分差:"+value.Score+"</strong></p>";
+						output+="<p>照片/棋谱数："+value.PICQty+"/"+value.SGFQty+"</p>";
 						
-						// compare score
-						if(value.Score>=0)
-						{		
-							output+="<i class='icon-plus' style='color:red'> "+scoreReduce+"</i>";
-						}
-						else
-						{	
-							output+="<i class='icon-minus' style='color:green'> "+scoreReduce+"</i>";
-						}
+//						// compare score
+//						if(value.Score>=0)
+//						{		
+//							output+="<i class='icon-plus' style='color:red'> "+scoreReduce+"</i>";
+//						}
+//						else
+//						{	
+//							output+="<i class='icon-minus' style='color:green'> "+scoreReduce+"</i>";
+//						}
 						output+="<p class='ui-li-aside'><strong>"+value.GameDate+"</strong></p>";
 						output+="</a>";
 						output+="<a href=\"#\" data-rel=\"popup\" onclick=\"om.changeHashPage('createGame.html',{Id:'"+value.Id+"'})\" data-position-to=\"window\" data-transition=\"pop\"></a>";

@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 69
-/svn/INDEED/!svn/ver/2743/06-Project%20Home/goMember-html5/js/app/src
+/svn/INDEED/!svn/ver/2751/06-Project%20Home/goMember-html5/js/app/src
 END
 menu.js
 K 25
@@ -19,7 +19,7 @@ friend.js
 K 25
 svn:wc:ra_dav:version-url
 V 79
-/svn/INDEED/!svn/ver/2743/06-Project%20Home/goMember-html5/js/app/src/friend.js
+/svn/INDEED/!svn/ver/2755/06-Project%20Home/goMember-html5/js/app/src/friend.js
 END
 messages.js
 K 25
@@ -37,13 +37,13 @@ login.js
 K 25
 svn:wc:ra_dav:version-url
 V 78
-/svn/INDEED/!svn/ver/2701/06-Project%20Home/goMember-html5/js/app/src/login.js
+/svn/INDEED/!svn/ver/2755/06-Project%20Home/goMember-html5/js/app/src/login.js
 END
 friendDetail.js
 K 25
 svn:wc:ra_dav:version-url
 V 85
-/svn/INDEED/!svn/ver/2742/06-Project%20Home/goMember-html5/js/app/src/friendDetail.js
+/svn/INDEED/!svn/ver/2748/06-Project%20Home/goMember-html5/js/app/src/friendDetail.js
 END
 gameDetail.js
 K 25
@@ -67,7 +67,7 @@ mygame.js
 K 25
 svn:wc:ra_dav:version-url
 V 79
-/svn/INDEED/!svn/ver/2739/06-Project%20Home/goMember-html5/js/app/src/mygame.js
+/svn/INDEED/!svn/ver/2751/06-Project%20Home/goMember-html5/js/app/src/mygame.js
 END
 chart.js
 K 25

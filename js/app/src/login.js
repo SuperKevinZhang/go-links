@@ -69,8 +69,18 @@ Login.openDialog= function (options) {
 $(function(){
 	//绑定登录按钮
 	$("#login_login").bind("vclick",function(e,ui){
+			window.localStorage.setItem("version_test", 1);
+
 			Login.btnLogin($("#txtName").val(),$("#txtPs").val());
 	});
+	
+	//登陆测试库
+	$("#login_login_test").bind("vclick",function(e,ui){
+			window.localStorage.setItem("version_test", 0);
+
+			Login.btnLogin($("#txtName").val(),$("#txtPs").val());
+	});
+	
 	//登录页面文本框的数据加载
 	Login.initLogin($('#txtName'),$('#txtPs'));
 });

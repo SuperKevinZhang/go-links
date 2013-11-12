@@ -188,8 +188,15 @@ om.hideloading=function(){
 
 om.pubUrl=function()
 {
-	return "http://183.129.206.88:8090/Smartlinks_Service/";//test
-	//return "http://183.129.206.88:8091/Smartlinks_Service/";
+	var vs = window.localStorage.getItem("version_test");
+	if(vs==0)//测试库
+	{
+		return "http://183.129.206.88:8090/Smartlinks_Service/";//test
+	}
+	else if(vs==1)//正式库
+	{
+		return "http://183.129.206.88:8091/Smartlinks_Service/";
+	}
 
 }
 //菜单加载

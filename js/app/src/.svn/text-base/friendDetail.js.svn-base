@@ -83,12 +83,12 @@ frienddetail.PKgame=function(){
 		var userName = window.localStorage.getItem("name");
 		
 		// get the selected Handicap 
-		var handicapValue= $("#fd_Handicap option:selected").val();
+		// var handicapValue= $("#fd_Handicap option:selected").val();
 
 		// invoke ajax menu
 		$.ajax({
                 type: "get",
-                url: om.pubUrl()+"GetCompare?WhitePlayer="+userName+"&BlackPlayer="+currentPlayer+"&Handicap="+handicapValue,
+                url: om.pubUrl()+"GetCompare?WhitePlayer="+currentPlayer+"&BlackPlayer="+userName+"&Handicap=",
                 dataType: "jsonp",
                 jsonpCallback: "call",
                 success: function (data) {
@@ -106,7 +106,7 @@ frienddetail.PKgame=function(){
 							//*******
 							output+= "<li><a class=\"a_PKresult\"  href=\"#\" >";
 							output+="<h2>胜算："+value.BProbality+"</h2>";
-							output+="<p><strong>让子数/贴目数："+value.Stone+"</strong></p>";
+							output+="<p><strong>棋份:"+value.Handicap+"  让子数/贴目数:"+value.Stone+"</strong></p>";
 							output+="</a>";
 							output+="</li> ";
 						});
@@ -134,9 +134,17 @@ $(function(pageDom, params){
 	params=$("#omParams").data("omParams");
 	
 	var loginUserName = window.localStorage.getItem("chineseName");
+	var UserName = window.localStorage.getItem("name");
+	
+	// judge pk same person
+	if(UserName==params.memberid)	
+	{
+		// disabled the pk button
+		$('#fd_a_gamePK').addClass('ui-disabled');
+	}
 	
 	// add pk add text
-    $("#df_btn_text").text(loginUserName+"(白)VS" +params.membername+"(黑)PK开始");
+    $("#df_btn_text").text(loginUserName+"(黑)VS" +params.membername+"(白)PK开始");
 	// 
 	// var outstr="<a id=\"fd_a_gamePK\" href=\"#\" data-role=\"button\" data-icon=\"star\" >PK胜算</a>";
 	// $("#fd_gamePK").append(outstr);
@@ -150,8 +158,6 @@ $(function(pageDom, params){
 		// 后退
 		javascript:history.back(-1);	
 	});
-	
-	
 
 	//load data
     frienddetail.loadData(params.memberid);
