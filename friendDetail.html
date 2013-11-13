@@ -5,28 +5,28 @@
 </head>
 
 <body>
-<div data-theme="e" id="friendDetail_page" data-role="page" data-add-back-btn="true" >
-	<div data-role="header"  data-position="fixed">
-        <a href="#" id ="friendDetail_back" data-icon="back"  class="ui-btn-left">返回</a>
+<div data-theme="a" id="friendDetail_page" data-role="page" data-position="fixed" data-add-back-btn="true" >
+	<div data-role="header" data-id="friend_header"   data-position="fixed">
+        <a href="#" id ="friendDetail_back" data-icon="back"  data-rel="back"  class="ui-btn-left">返回</a>
     	<h3>棋友明细</h3>
     </div>
     <div data-role="content">
     	<div class="ui-grid-a" id="gameInfo">
         	<div class="ui-block-a">
                
-                <p ><strong id="fd_p_account"></strong></p>
+                <p ><strong id="fd_p_account">会员账号</strong></p>
                 <p><strong>个人信息</strong></p>
                     <ul id="fd_ul_personInfo">
-                        <li  id="fd_li_gender"></li>
-                        <li id="fd_li_grade"></li>
-                        <li id="fd_li_integral"></li>
-                        <li id="fd_li_gamecount"></li>
+                        <li id="fd_li_gender">性别</li>
+                        <li id="fd_li_grade">段位</li>
+                        <li id="fd_li_integral">积分</li>
+                        <li id="fd_li_gamecount">对局数</li>
                     </ul>
              </div>
              <div class="ui-block-b">
              <br>
              <br>
-              <h1 id="fd_h_username"></h1>
+              <h1 id="fd_h_username">XXX</h1>
              <!--	<p><img src="../res/icon/ios/person.jpg" id="img_person" width="100" height="100"/></p>-->
              </div>
         </div>

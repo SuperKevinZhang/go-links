@@ -18,6 +18,7 @@ frienddetail.loadData=function(memberid){
                 url: om.pubUrl()+"GetMemberByUsername?username="+memberid,
                 dataType: "jsonp",
                 jsonpCallback: "call",
+				timeout:10000,
                 success: function (data) {
 					//data解析为JSON数据
 					var returnData=eval(data);
@@ -91,6 +92,7 @@ frienddetail.PKgame=function(){
                 url: om.pubUrl()+"GetCompare?WhitePlayer="+currentPlayer+"&BlackPlayer="+userName+"&Handicap=",
                 dataType: "jsonp",
                 jsonpCallback: "call",
+				timeout:10000,
                 success: function (data) {
 					//data解析为JSON数据
 					var returnData=eval(data);
@@ -150,15 +152,11 @@ $(function(pageDom, params){
 	// $("#fd_gamePK").append(outstr);
 	
 	// add pk click method
-	$("#fd_a_gamePK").bind("vclick",function(){
+	$("#fd_a_gamePK").unbind();
+	$("#fd_a_gamePK").bind("click",function(){
 		// pk method	
 		frienddetail.PKgame();
 	});
-	$("#friendDetail_back").bind("vclick",function(){
-		// 后退
-		javascript:history.back(-1);	
-	});
-
 	//load data
     frienddetail.loadData(params.memberid);
 });

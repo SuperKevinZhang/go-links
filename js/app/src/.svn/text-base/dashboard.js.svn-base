@@ -19,14 +19,18 @@ dashboard.loadData=function(data){
                 url: om.pubUrl()+"GetUserSumInfo/"+userName,
                 dataType: "jsonp",
                 jsonpCallback: "call",
+				timeout:10000,
                 success: function (data) {
 					//data解析为JSON数据
 					 data=eval(data);
+					 
+					 // alert(JSON.stringify(data));
+					 
 					 //访问成功
 					 if(data.Status=="OK"){
 						 //访问成功，得到用户的基础信息
 						  var info=data.returnValue;
-						  $("#db_score").text(info.Score );//当前积分
+						  $("#db_score").html(info.Score +"<span style='color:red'>("+info.GradeName+")</span>");//当前积分
 						  if(info.Rank<=0)//没有排名
 						  {
 						  	$("#db_index").text("您暂无排名");//我的排名
@@ -38,6 +42,9 @@ dashboard.loadData=function(data){
 						  $("#db_frends").text(info.Opponent);//手谈棋友数
 						  $("#db_games").text(info.GameNum);//对局数
 						  $("#db_activity").text(info.Tourament);//活动次数
+						  
+						  // store the grade value
+						  window.localStorage.setItem("userGrade",info.Grade);
 						  
 						  dashboard.jointime(info.RegisterDate);//入会时间
 						  om.hideloading();// close loading
@@ -87,18 +94,47 @@ function setCurRegisterSencond() {
 //初始化信息
 $(function(){
 	
-	om.memu("dashboard_menu");
+	/*//打开面板
+	$("#dashboard_menu_a").bind("click", function () {
+			$( "#dashboard_menupanel" ).panel( "open" );
+		});*/
+	/* //右滑动，打开菜单
+	 $("#dashboard_page").bind("swiperight", function () {
+			$( "#dashboard_menupanel" ).panel( "open" );
+	 });*/
+	 
+	  /* $("#dashboard_page").swipe( {
+                                                swipeStatus:function(event, phase, direction, distance, duration, fingers) {
+
+                                                if(phase==$.fn.swipe.phases.PHASE_START) {
+                                                        $(this).text("moving...");
+                                                } 
+
+                                                if(phase==$.fn.swipe.phases.PHASE_CANCEL) {
+                                                        $(this).text("swipe cancelled (due to finger count) "  );
+                                                }   
+                                          },
+                                          swipe:function(event, direction, distance, duration, fingerCount) {
+                                                $(this).text("You swiped " + direction + " with " + fingerCount + " fingers");
+                                          },
+                                          threshold:0,
+                                          fingers:2
+                                        });*/
+										
+										
+	/* //菜单按钮
+	 $("#dashboard_menu").find("#dashboard").on("vclick" ,function(){om.changeHashPage('dashboard.html')});
+	 $("#dashboard_menu").find("#match").on("vclick" ,function(){om.changeHashPage('match.html')});
+	 $("#dashboard_menu").find("#mygame").on("vclick" ,function(){om.changeHashPage('mygame.html')});
+	 $("#dashboard_menu").find("#chart").on("vclick" ,function(){om.changeHashPage('chart.html')});
+	 $("#dashboard_menu").find("#friend").on("vclick" ,function(){om.changeHashPage('friend.html')});
+	 $("#dashboard_menu").find("#messages").on("vclick" ,function(){om.changeHashPage('messages.html')});
+	   */
+	   
+	//om.memu("dashboard_menu");
 	//load data
 	dashboard.loadData("");
-	//打开面板
-	$("#dashboard_menu_a").bind("vclick", function () {
-			$( "#dashboard_menupanel" ).panel( "open" );
-		});
 	
-	 //右滑动，打开菜单
-	 $("#dashboard_header").bind("swiperight", function () {
-			$( "#dashboard_menupanel" ).panel( "open" );
-		});
 	
 });
 

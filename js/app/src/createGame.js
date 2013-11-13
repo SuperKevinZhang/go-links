@@ -41,6 +41,7 @@ createGame.SearchPlayer=function(txt_playid){
                 url: om.pubUrl()+"GetMemberByName?Name="+searchText+"&MemberIds=",
                 dataType: "jsonp",
                 jsonpCallback: "call",
+				timeout:10000,
                 success: function (data) {
 					//data解析为JSON数据
 					var returnData=eval(data);
@@ -54,7 +55,7 @@ createGame.SearchPlayer=function(txt_playid){
 						// iterate the data
 						$.each(returnList,function(index,value){
 							// joint the html string
-							output+="<li><a onclick=\"createGame.bindpalyer('"+value.MemberId+"','"+value.ChineseName+"')\" href=\"#\">"+value.ChineseName+"</a></li>";        	
+							output+="<li><a onclick=\"createGame.bindpalyer('"+value.MemberId+"','"+value.ChineseName+"')\" href=\"#\">"+value.ChineseName+"/"+value.MemberId+"</a></li>";        	
 						});
 
 						// refresh
@@ -88,12 +89,12 @@ function onSelectChange(){
 		if(handicapValue=="R01")
 		{
 			// stone and komi num
-			$("#cg_stonesNum").val(0);
+			$("#cg_stonesNum").val(1);
 			$("#cg_komiNum").val(7.5);
 			
 			// disable stones and able cg_komiNum
 			$("#cg_stonesNum").prop("disabled", true);
-			$("#cg_komiNum").prop("disabled", true);
+			$("#cg_komiNum").prop("disabled", false);
 			
 			//$("#cg_roundNum").textinput("disable");		
 			 //$('#cg_roundNum').addClass('ui-disabled');
@@ -102,13 +103,12 @@ function onSelectChange(){
 		else if(handicapValue=="R02")
 		{
 			// stone and komi num
-			$("#cg_stonesNum").val(0);
+			$("#cg_stonesNum").val(1);
 			$("#cg_komiNum").val(0);
 			
 			// disable stones and able komi 
 			$("#cg_stonesNum").prop("disabled", true);
-			$("#cg_komiNum").prop("disabled", false);
-			
+			$("#cg_komiNum").prop("disabled", true);
 		}
 		else if(handicapValue=="R03")
 		{
@@ -118,25 +118,39 @@ function onSelectChange(){
 			
 			// able stones and komi
 			$("#cg_stonesNum").prop("disabled", false);
-			$("#cg_komiNum").prop("disabled", false);
+			$("#cg_komiNum").prop("disabled", true);
 		}
 	}
 	
 // submit the form
 createGame.savegame=function(Id){	
-		// check the data
+		var num={i:1,};
+		console.log("新增对局点击次数"+num.i++);
+		// valide the data
 		// round
 		if($("#cg_roundNum").val().length==0)
 		{
 			om.showloading("轮次不能为空",true);
 			return;
 		}	
+		var roundflag=createGame.isInterger($("#cg_roundNum").val());
+		if(!roundflag)
+		{
+			om.showloading("轮次请输入正整数",true);
+			return;
+		}
 		// position
 		if($("#cg_positionNum").val().length==0)
 		{
 			om.showloading("台次不能为空",true);
 			return;
 		}	
+		var positionflag=createGame.isInterger($("#cg_positionNum").val());
+		if(!positionflag)
+		{
+			om.showloading("台次请输入正整数",true);
+			return;
+		}
 		// 日期
 		if($("#date_game").val().length==0)
 		{
@@ -152,27 +166,42 @@ createGame.savegame=function(Id){
 		// black player
 		if(blackPlayerID.length==0)
 		{
-			om.showloading("执黑不能为空",true);
+			om.showloading("请从下拉列表选择执白人员",true);
 			return;
 		} 
 		// white player
 		if(whitePlayerID.length==0)
 		{
-			om.showloading("执白不能为空",true);
+			om.showloading("请从下拉列表选择执黑人员",true);
 			return;
 		} 		
 		// stones 
-		if($("#cg_stonesNum").val().length==0)
+		var stonesValue =$("#cg_stonesNum").val();
+		if(stonesValue.length==0)
 		{
 			om.showloading("让子数不能为空",true);
 			return;
 		} 
+		var stonesflag=createGame.isInterger(stonesValue);
+		if(!stonesflag||stonesValue>9)
+		{
+			om.showloading("让子数请输入1~9整数",true);
+			return;
+		}
 		// komi
+		var komiValue=$("#cg_komiNum").val();
 		if($("#cg_komiNum").val().length==0)
 		{
 			om.showloading("贴目数不能为空",true);
 			return;
 		} 
+		var trun=isNaN($("#cg_komiNum").val());
+		if(trun||komiValue%0.5!=0||komiValue<-30||komiValue>30)
+		{
+			om.showloading("贴目数请输入-30~30之间0.5倍数数字",true);
+			return;
+		}
+		// 
 		if(blackPlayerID==whitePlayerID)
 		{
 			om.showloading("执黑执白不能相同",true);
@@ -182,8 +211,17 @@ createGame.savegame=function(Id){
 		// get the login username
 		var userName = window.localStorage.getItem("name");
 		
-		// alert($("#slider_IsParticipate option:selected").val());
+		// black or white must have the login user
+		if(blackPlayerID!=userName&&whitePlayerID!=userName) 
+		{
+			om.showloading("执黑执白必须选一个自己",true);
+			return;
+		}
 		
+		om.showloading("正在加载，请稍等……");
+		
+		// alert($("#slider_IsParticipate option:selected").val());
+
 	  	var publishUrl=om.pubUrl()+"UpdateLoadResult/"+userName;
 		publishUrl+="?jsonGame={'Id':'"+Id+"','Result':'"+$("#cg_game_result option:selected").val()+"','Round':'"+$("#cg_roundNum").val()+"','GameId':'','WhitePlayer':'"+whitePlayerID+"','Handicap':'"+$("#cg_select_chess option:selected").val()+"','Stones':'"+$("#cg_stonesNum").val()+"','GameDate':'"+$("#date_game").val()+"','Position':'"+$("#cg_positionNum").val()+"','TouramentId':'"+TouramentID+"','Komi':'"+$("#cg_komiNum").val()+"','RatingFlag':'"+$("#slider_IsParticipate option:selected").val()+"','Judge':'','BlackPlayer':'"+blackPlayerID+"'}";
 
@@ -266,11 +304,11 @@ createGame.initbyCreateGame=function(){
 	$("#date_game").val(output);
 	
 	// stone and komi num
-	$("#cg_stonesNum").val(0);
+	$("#cg_stonesNum").val(1);
 	$("#cg_komiNum").val(7.5);	
 	// disable stones and able cg_komiNum
 	$("#cg_stonesNum").prop("disabled", true);
-	$("#cg_komiNum").prop("disabled", true);
+	$("#cg_komiNum").prop("disabled", false);
 	
 	// $("#cg_select_chess").selectedIndex =2; 
 	// $("#cg_select_chess").options[2].selected = true; 
@@ -283,14 +321,13 @@ createGame.initbyUpdateGame=function(id){
 		// start loading
 		om.showloading("正在加载，请稍等……");
 		
-		//alert(id);
-
 		// invoke ajax menu
 		$.ajax({
                 type: "get",
                 url: om.pubUrl()+"GameDetail?GameId=&Id="+id,
                 dataType: "jsonp",
                 jsonpCallback: "call",
+				timeout:10000,
                 success: function (data) {	
 					//data解析为JSON数据
 					var returnData=eval(data);
@@ -330,11 +367,11 @@ createGame.initbyUpdateGame=function(id){
 						$("#cg_komiNum").val(gameInfo.Komi);
 						// result istakepoint	
 						var gameResult = gameInfo.Result ;
-						// alert(gameResult);
+						// alert("x"+gameResult+"x");
 						// select
 						var resultSelect = $('#cg_game_result');						
 						// Select the relevant option, de-select any others
-						resultSelect.val("W").attr('selected', true).siblings('option').removeAttr('selected');
+						resultSelect.val($.trim(gameResult)).attr('selected', true).siblings('option').removeAttr('selected');
 						// jQM refresh
 						resultSelect.selectmenu("refresh", true);
 						// IsParticipate					
@@ -368,11 +405,17 @@ createGame.initbyUpdateGame=function(id){
     });
 }
 
+// position interger
+createGame.isInterger=function(n) {
+        return /^[0-9]*[1-9][0-9]*$/.test(n);
+    }
+
 //初始化登录信息
 $(function(){	
    	// get the pass param
 	params=$("#omParams").data("omParams");
 
+    // judge Id is "" 
 	if(params.Id=='')
 	{
 		createGame.initbyCreateGame();
@@ -381,6 +424,9 @@ $(function(){
 	{
 		createGame.initbyUpdateGame(params.Id);
 	}
+	
+	// init common init
+	// createGame.initGameCommon();
 	
 	// search text change
 	$('.cg_player').on('input',function(e){ 
@@ -405,7 +451,8 @@ $(function(){
 });	
 
 	// bind the add event
-	$("#cg_savegame").bind("vclick",function(e,ui){
+	$("#cg_savegame").unbind();  
+	$("#cg_savegame").bind("click",function(e,ui){
 		createGame.savegame(params.Id);
 	});
 });

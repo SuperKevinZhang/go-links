@@ -2,8 +2,7 @@
 <!--
 
 -->
-<html>
-    <head>
+<html><head>
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
 <!--       <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
@@ -25,13 +24,24 @@
         
         <script src="js/app/src/login.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+		<!--快速点击事件-->
+		<script type="text/javascript" src="js/lib/src/fastclick.js"></script>
+        
+<!--		 <script type="text/javascript" src="js/lib/src/jquery.touchSwipe.js"></script>
+-->
+        <script type="text/javascript" src="js/lib/src/jquery.mobile-1.3.2.js"></script>
         <script type="text/javascript" src="js/lib/src/iscroll.js"></script>
 
-        <script type="text/javascript" src="js/lib/src/jquery.mobile-1.3.2.js"></script>
          <script ype="text/javascript" src="js/smart_mobile.js"></script>
          
     <script type="text/javascript" charset="utf-8">
  	
+	//快速点击事件
+	 window.addEventListener('load', function() {
+                new FastClick(document.body);
+        }, false);
+		
+	//摄像头事件
 	var pictureSource;   // picture source
     var destinationType; // sets the format of returned value
 
@@ -153,7 +163,7 @@
     </head>
     <body>
  	 <div style="visibility:hidden" id="omParams"></div>
-      <div  data-role="page"  data-control-title="login" id="login_page" style="background-image:url(img/bg.gif)" >
+      <div  data-role="page" data-tap-toggle="false" data-control-title="login" id="login_page" style="background-image:url(img/bg.gif)" >
       <div data-role="content" style="padding: 7% ">
           <div style="" data-controltype="image">
               <img style="width: 100px; height: 100px" src="img/logo.png">

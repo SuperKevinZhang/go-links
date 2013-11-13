@@ -86,7 +86,7 @@ om.fadeHTML = function (e, html) {
 };
 
 om.toggle = function (cont, jqBtn, jqContent) {
-    om.te(jqBtn, cont).bind("vclick", function () {
+    om.te(jqBtn, cont).bind("click", function () {
         var opened = $(this).hasClass("icon-angle-up");
         if (opened) {
             $(this).removeClass("icon-angle-up").addClass("icon-angle-down");
@@ -225,6 +225,9 @@ om.memu=function(menuId)
 	   	   /*********************************/
 
 	   $("#"+menuId).append("<li data-theme=\"a\"><a id='login_page' href=\"#login_page\" data-transition=\"none\" class=\"icon icon-reply\"> 注销</a></li>");
+	   
+	   console.log("菜单："+$("#"+menuId).html());
+
 	   $("#"+menuId).listview('refresh');
 	   
 	  /*$("#dashboard").on("vclick" ,function(){om.changeHashPage('dashboard.html')});

@@ -14,6 +14,7 @@ dashboard.loadData=function(data){
                 url: om.pubUrl()+"GetRecentNotice",
                 dataType: "jsonp",
                 jsonpCallback: "call",
+				timeout:10000,
                 success: function (data) {
 					//data解析为JSON数据
 					 data=eval(data);
@@ -58,23 +59,33 @@ dashboard.loadData=function(data){
 }
 //初始化信息
 $(function(pageDom, params){
-	om.memu("messages_menu");
+	//om.memu("messages_menu");
+	
+		//打开面板
+/*	$("#messsages_menu_a").bind("click", function () {
+			$( "#messages_menupanel" ).panel( "open" );
+		});		*/	
+ 	/*//右滑动，打开菜单	
+	$("#messages_page").bind("swiperight", function () {
+			$( "#messages_menupanel" ).panel( "open" );
+	});*/
+	/*//菜单按钮	
+   $("#messages_menu").find("#dashboard").on("vclick" ,function(){om.changeHashPage('dashboard.html')});
+   $("#messages_menu").find("#match").on("vclick" ,function(){om.changeHashPage('match.html')});
+   $("#messages_menu").find("#mygame").on("vclick" ,function(){om.changeHashPage('mygame.html')});
+   $("#messages_menu").find("#chart").on("vclick" ,function(){om.changeHashPage('chart.html')});
+   $("#messages_menu").find("#friend").on("vclick" ,function(){om.changeHashPage('friend.html')});
+   $("#messages_menu").find("#messages").on("vclick" ,function(){om.changeHashPage('messages.html')});
+	   */
 	//pageDom, params
 	//alert(0);
 	params=$("#omParams").data("omParams");
 	
-		//打开面板
-	$("#messsages_menu_a").bind("vclick", function () {
-			$( "#messages_menupanel" ).panel( "open" );
-		});			
-
+	
 
 	//alert(params.type);
 	//load data
 	dashboard.loadData();
-	 //右滑动，打开菜单	
-	 $("#messages_header").bind("swiperight", function () {
-			$( "#messages_menupanel" ).panel( "open" );
-		});
+	
 	
 });

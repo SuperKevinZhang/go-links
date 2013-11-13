@@ -7,16 +7,32 @@
     <title>假日围棋社</title>
     </head>
     <body>
-  <div data-theme="e" data-role="page" data-control-title="dashboard" id="chart_page">
+  <div data-theme="a" data-role="page" data-position="fixed" data-control-title="dashboard" id="chart_page">
  
   		
-      <div data-role="panel" id="chart_panel" data-position="left" data-display="reveal" 
+      <div data-role="panel" id="chart_panel"  data-position-fixed=true data-position="left" data-display="reveal" 
       data-theme="a">
             <ul  id="chart_menu" name="chart_menu" data-role="listview" data-divider-theme="h" data-inset="false">
+                <!-- <li data-role="list-divider" role="heading">菜单</li>
+                <li data-theme="a"><a id="dashboard" href="#" data-transition="none" class="icon icon-rocket"> 我的轨迹</a></li>
+                <li data-theme="a"><a id="match" href="#"  data-transition="none" class="icon icon-fire"> 比赛</a></li>
+                <li data-theme="a"><a id="mygame" href="#"  data-transition="none" class="icon icon-coffee"> 我的对局</a></li>
+                <li data-theme="a"><a id="chart" href="#"  data-transition="none" class="icon icon-gift"> 积分动态</a></li>
+                <li data-theme="a"><a id="friend" href="#"  data-transition="none" class="icon icon-user"> 棋友</a></li>
+                <li data-theme="a"><a id="messages" href="#"  data-transition="none" class="icon icon-bell"> 消息</a></li>
+                <li data-theme="a"><a id="login_page" href="#login_page" data-transition="none" class="icon icon-reply"> 注销</a></li>-->
+                <li data-role="list-divider" role="heading">菜单</li>
+            <li data-theme="a"><a id="dashboard" href="#" onclick="om.changeHashPage('dashboard.html')" data-transition="none" class="icon icon-rocket"> 我的轨迹</a></li>
+            <li data-theme="a"><a id="match" href="#" onclick="om.changeHashPage('match.html')" data-transition="none" class="icon icon-fire"> 比赛</a></li>
+            <li data-theme="a"><a id="mygame" href="#" onclick="om.changeHashPage('mygame.html')" data-transition="none" class="icon icon-coffee"> 我的对局</a></li>
+            <li data-theme="a"><a id="chart" href="#" onclick="om.changeHashPage('chart.html')" data-transition="none" class="icon icon-gift"> 积分动态</a></li>
+            <li data-theme="a"><a id="friend" href="#" onclick="om.changeHashPage('friend.html')" data-transition="none" class="icon icon-user"> 棋友</a></li>
+            <li data-theme="a"><a id="messages" href="#" onclick="om.changeHashPage('messages.html')" data-transition="none" class="icon icon-bell"> 消息</a></li>
+            <li data-theme="a"><a id="login_page" href="#login_page" data-transition="none" class="icon icon-reply"> 退出</a></li>
           </ul>
       </div>
       <div data-theme="a" data-role="header" data-position="fixed" id="chart_header">
-          <a data-controltype="panelbutton" data-role="button" id="chart_menu_a" href="#" data-icon="bars"
+          <a data-controltype="panelbutton" data-role="button" id="chart_menu_a" href="#chart_panel" data-icon="bars"
            class="ui-btn-left">菜单
           </a>
           <h3>

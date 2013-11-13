@@ -1,15 +1,15 @@
 10
 
 dir
-2751
+2819
 https://192.168.1.15/svn/INDEED/06-Project%20Home/goMember-html5/img
 https://192.168.1.15/svn/INDEED
 
 
 
-2013-11-08T05:51:42.006625Z
-2695
-kevin.zhang
+2013-11-13T02:57:10.730875Z
+2780
+qinmenghuan
 has-props
 has-prop-mods
 
@@ -264,6 +264,40 @@ has-props
 
 9201
 
+blackPlayer_96.png
+file
+
+
+
+
+2013-11-13T04:17:38.000000Z
+76a48abd90fcf308b3b79b1b29dc441a
+2013-11-13T02:56:59.043375Z
+2779
+qinmenghuan
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3566
+
 bg.gif
 file
 
@@ -365,4 +399,38 @@ has-props
 
 
 3347
+
+whitePlayer_96.png
+file
+
+
+
+
+2013-11-13T04:17:38.000000Z
+6f2a366db5446428ee82056053226f29
+2013-11-13T02:57:10.730875Z
+2780
+qinmenghuan
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4303
 

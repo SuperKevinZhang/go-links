@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 69
-/svn/INDEED/!svn/ver/2751/06-Project%20Home/goMember-html5/js/app/src
+/svn/INDEED/!svn/ver/2818/06-Project%20Home/goMember-html5/js/app/src
 END
 menu.js
 K 25
@@ -13,71 +13,71 @@ dashboard.js
 K 25
 svn:wc:ra_dav:version-url
 V 82
-/svn/INDEED/!svn/ver/2685/06-Project%20Home/goMember-html5/js/app/src/dashboard.js
+/svn/INDEED/!svn/ver/2815/06-Project%20Home/goMember-html5/js/app/src/dashboard.js
 END
 friend.js
 K 25
 svn:wc:ra_dav:version-url
 V 79
-/svn/INDEED/!svn/ver/2755/06-Project%20Home/goMember-html5/js/app/src/friend.js
+/svn/INDEED/!svn/ver/2816/06-Project%20Home/goMember-html5/js/app/src/friend.js
 END
 messages.js
 K 25
 svn:wc:ra_dav:version-url
 V 81
-/svn/INDEED/!svn/ver/2685/06-Project%20Home/goMember-html5/js/app/src/messages.js
+/svn/INDEED/!svn/ver/2792/06-Project%20Home/goMember-html5/js/app/src/messages.js
 END
 round.js
 K 25
 svn:wc:ra_dav:version-url
 V 78
-/svn/INDEED/!svn/ver/2688/06-Project%20Home/goMember-html5/js/app/src/round.js
+/svn/INDEED/!svn/ver/2775/06-Project%20Home/goMember-html5/js/app/src/round.js
 END
 login.js
 K 25
 svn:wc:ra_dav:version-url
 V 78
-/svn/INDEED/!svn/ver/2755/06-Project%20Home/goMember-html5/js/app/src/login.js
+/svn/INDEED/!svn/ver/2816/06-Project%20Home/goMember-html5/js/app/src/login.js
 END
 friendDetail.js
 K 25
 svn:wc:ra_dav:version-url
 V 85
-/svn/INDEED/!svn/ver/2748/06-Project%20Home/goMember-html5/js/app/src/friendDetail.js
+/svn/INDEED/!svn/ver/2816/06-Project%20Home/goMember-html5/js/app/src/friendDetail.js
 END
 gameDetail.js
 K 25
 svn:wc:ra_dav:version-url
 V 83
-/svn/INDEED/!svn/ver/2747/06-Project%20Home/goMember-html5/js/app/src/gameDetail.js
+/svn/INDEED/!svn/ver/2816/06-Project%20Home/goMember-html5/js/app/src/gameDetail.js
 END
 match.js
 K 25
 svn:wc:ra_dav:version-url
 V 78
-/svn/INDEED/!svn/ver/2708/06-Project%20Home/goMember-html5/js/app/src/match.js
+/svn/INDEED/!svn/ver/2818/06-Project%20Home/goMember-html5/js/app/src/match.js
 END
 createGame.js
 K 25
 svn:wc:ra_dav:version-url
 V 83
-/svn/INDEED/!svn/ver/2740/06-Project%20Home/goMember-html5/js/app/src/createGame.js
+/svn/INDEED/!svn/ver/2812/06-Project%20Home/goMember-html5/js/app/src/createGame.js
 END
 mygame.js
 K 25
 svn:wc:ra_dav:version-url
 V 79
-/svn/INDEED/!svn/ver/2751/06-Project%20Home/goMember-html5/js/app/src/mygame.js
+/svn/INDEED/!svn/ver/2814/06-Project%20Home/goMember-html5/js/app/src/mygame.js
 END
 chart.js
 K 25
 svn:wc:ra_dav:version-url
 V 78
-/svn/INDEED/!svn/ver/2685/06-Project%20Home/goMember-html5/js/app/src/chart.js
+/svn/INDEED/!svn/ver/2792/06-Project%20Home/goMember-html5/js/app/src/chart.js
 END
 roundgame.js
 K 25
 svn:wc:ra_dav:version-url
 V 82
-/svn/INDEED/!svn/ver/2750/06-Project%20Home/goMember-html5/js/app/src/roundgame.js
+/svn/INDEED/!svn/ver/2815/06-Project%20Home/goMember-html5/js/app/src/roundgame.js
 END

@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 62
-/svn/INDEED/!svn/ver/2695/06-Project%20Home/goMember-html5/img
+/svn/INDEED/!svn/ver/2780/06-Project%20Home/goMember-html5/img
 END
 .DS_Store
 K 25
@@ -45,6 +45,12 @@ svn:wc:ra_dav:version-url
 V 74
 /svn/INDEED/!svn/ver/2629/06-Project%20Home/goMember-html5/img/game_96.png
 END
+blackPlayer_96.png
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/INDEED/!svn/ver/2779/06-Project%20Home/goMember-html5/img/blackPlayer_96.png
+END
 bg.gif
 K 25
 svn:wc:ra_dav:version-url
@@ -62,4 +68,10 @@ K 25
 svn:wc:ra_dav:version-url
 V 74
 /svn/INDEED/!svn/ver/2695/06-Project%20Home/goMember-html5/img/bg-0023.gif
+END
+whitePlayer_96.png
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/INDEED/!svn/ver/2780/06-Project%20Home/goMember-html5/img/whitePlayer_96.png
 END

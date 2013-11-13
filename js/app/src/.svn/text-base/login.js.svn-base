@@ -68,14 +68,16 @@ Login.openDialog= function (options) {
 //初始化登录信息
 $(function(){
 	//绑定登录按钮
-	$("#login_login").bind("vclick",function(e,ui){
+	$("#login_login").unbind();
+	$("#login_login").bind("click",function(e,ui){
 			window.localStorage.setItem("version_test", 1);
 
 			Login.btnLogin($("#txtName").val(),$("#txtPs").val());
 	});
 	
 	//登陆测试库
-	$("#login_login_test").bind("vclick",function(e,ui){
+	$("#login_login_test").unbind();
+	$("#login_login_test").bind("click",function(e,ui){
 			window.localStorage.setItem("version_test", 0);
 
 			Login.btnLogin($("#txtName").val(),$("#txtPs").val());

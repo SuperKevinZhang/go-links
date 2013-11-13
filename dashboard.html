@@ -9,14 +9,34 @@ dashborad
     <title>假日围棋社</title>
     </head>
     <body>
-  <div data-theme="e" data-role="page"  data-position="fixed" data-control-title="dashboard" id="dashboard_page" data-dom-cache="true">
-      <div data-role="panel" id="dashboard_menupanel" data-position="left" data-display="reveal"
+  <div data-theme="a" data-role="page" data-tap-toggle="false" data-position="fixed" data-control-title="dashboard" id="dashboard_page">
+      <div data-role="panel" id="dashboard_menupanel"  data-position-fixed=true data-position="left" data-display="reveal"
       data-theme="a">
             <ul  id="dashboard_menu" name="dashboard_menu" data-role="listview" data-divider-theme="h" data-inset="false">
+<!--            
+            <li data-role="list-divider" role="heading">菜单</li>
+            <li data-theme="a"><a id="dashboard" href="#" onclick="om.changeHashPage('dashboard.html')" data-transition="none" class="icon icon-rocket"> 我的轨迹</a></li>
+            <li data-theme="a"><a id="match" href="#" onclick="om.changeHashPage('match.html')" data-transition="none" class="icon icon-fire"> 比赛</a></li>
+            <li data-theme="a"><a id="mygame" href="#" onclick="om.changeHashPage('mygame.html')" data-transition="none" class="icon icon-coffee"> 我的对局</a></li>
+            <li data-theme="a"><a id="chart" href="#" onclick="om.changeHashPage('chart.html')" data-transition="none" class="icon icon-gift"> 积分动态</a></li>
+            <li data-theme="a"><a id="friend" href="#" onclick="om.changeHashPage('friend.html')" data-transition="none" class="icon icon-user"> 棋友</a></li>
+            <li data-theme="a"><a id="messages" href="#" onclick="om.changeHashPage('messages.html')" data-transition="none" class="icon icon-bell"> 消息</a></li>
+            <li data-theme="a"><a id="login_page" href="#login_page" data-transition="none" class="icon icon-reply"> 注销</a></li>
+            -->
+            
+            <li data-role="list-divider" role="heading">菜单</li>
+            <li data-theme="a"><a id="dashboard" href="#" onclick="om.changeHashPage('dashboard.html')" data-transition="none" class="icon icon-rocket"> 我的轨迹</a></li>
+            <li data-theme="a"><a id="match" href="#" onclick="om.changeHashPage('match.html')" data-transition="none" class="icon icon-fire"> 比赛</a></li>
+            <li data-theme="a"><a id="mygame" href="#" onclick="om.changeHashPage('mygame.html')" data-transition="none" class="icon icon-coffee"> 我的对局</a></li>
+            <li data-theme="a"><a id="chart" href="#" onclick="om.changeHashPage('chart.html')" data-transition="none" class="icon icon-gift"> 积分动态</a></li>
+            <li data-theme="a"><a id="friend" href="#" onclick="om.changeHashPage('friend.html')" data-transition="none" class="icon icon-user"> 棋友</a></li>
+            <li data-theme="a"><a id="messages" href="#" onclick="om.changeHashPage('messages.html')" data-transition="none" class="icon icon-bell"> 消息</a></li>
+            <li data-theme="a"><a id="login_page" href="#login_page" data-transition="none" class="icon icon-reply"> 退出</a></li>
+            
           </ul>
       </div>
       <div data-theme="a" data-role="header" data-position="fixed" id="dashboard_header">
-          <a data-controltype="panelbutton" id = "dashboard_menu_a" data-role="button" href="#" data-icon="bars"
+          <a data-controltype="panelbutton" id = "dashboard_menu_a" data-role="button" href="#dashboard_menupanel" data-icon="bars"
            data-wrapperels="span"  class="ui-btn-left">菜单
           </a>
           
@@ -31,7 +51,7 @@ dashborad
            <table class="nav">
                 <tbody>
                     <tr>
-                        <td colspan="4" class="nav_item l" >
+                        <td colspan="4" class="nav_item l" onclick="om.changeHashPage('chart.html')">
                             <i class="icon icon-gift"></i>
                             <h1 id="db_score" name = "db_score" class="items_data">0</h1>
                             <br>
@@ -53,13 +73,13 @@ dashborad
                     </tr>
                     <tr>
                        
-                        <td colspan="2" class="nav_item m" >
+                        <td colspan="2" class="nav_item m" onclick="om.changeHashPage('mygame.html')">
                             <i class="icon icon-coffee"></i>
                             <h1 id="db_games" name = "db_games"  class="items_data">0</h1>
                             <h2 class="items_name">对局数</h2>
                         </td>
                          
-                        <td  colspan="2" class="nav_item s" >
+                        <td  colspan="2" class="nav_item s" onclick="om.changeHashPage('match.html')" >
                             <i class="icon icon-star"></i>
                             <h1 id="db_activity" name = "db_activity" class="items_data">0</h1>
                             <h2 class="items_name">活动次数</h2>

@@ -1,15 +1,15 @@
 10
 
 dir
-2751
+2819
 https://192.168.1.15/svn/INDEED/06-Project%20Home/goMember-html5/js/lib/src
 https://192.168.1.15/svn/INDEED
 
 
 
-2013-11-06T01:58:04.366000Z
-2601
-liuyang
+2013-11-13T06:37:47.215250Z
+2791
+kevin.zhang
 has-props
 has-prop-mods
 
@@ -128,6 +128,40 @@ qinmenghuan
 
 4091
 
+jquery.touchSwipe.js
+file
+
+
+
+
+2013-11-13T06:24:44.000000Z
+4a42869b496ad082b6641d06275959aa
+2013-11-13T06:37:47.215250Z
+2791
+kevin.zhang
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+97961
+
 jquery.js
 file
 
@@ -167,7 +201,7 @@ file
 
 
 
-
+delete
 2013-11-06T09:34:26.000000Z
 c5565af7c24a3edce1ab76f540fec308
 2013-11-01T08:42:06.415504Z
@@ -192,7 +226,41 @@ qinmenghuan
 
 
 
-
+Macintosh HD_Users_indeed_Desktop_Project_I-GoMember_www_DW_SVN_ChangelistName_OpenForDelete
 
 8830
+
+fastclick.js
+file
+
+
+
+
+2013-11-13T03:37:01.000000Z
+09925fc73c2fccba2ccbcfae981a1e97
+2013-11-13T04:17:24.777750Z
+2783
+kevin.zhang
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+23055
 

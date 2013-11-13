@@ -18,6 +18,7 @@ chart.plotLoad=function(){
                 url: om.pubUrl()+"ScoreChartByUsername/"+userName,
                 dataType: "jsonp",
                 jsonpCallback: "call",
+				timeout:10000,
                 success: function (data) {
 					//data解析为JSON数据
 					 data=eval(data);
@@ -99,15 +100,25 @@ chart.plotLoad=function(){
 }
 
 $(function(){
-	om.memu("chart_menu");
+	  //om.memu("chart_menu");
+	/*//打开面板
+	$("#chart_menu_a").bind("click", function () {
+			$( "#chart_panel" ).panel( "open" );
+		});*/
+	/*//右滑动，打开菜单
+	 $("#chart_page").bind("swiperight", function () {
+			$( "#chart_panel" ).panel( "open" );
+		});*/
+	/* //菜单按钮
+	 $("#chart_menu").find("#dashboard").on("vclick" ,function(){om.changeHashPage('dashboard.html')});
+	 $("#chart_menu").find("#match").on("vclick" ,function(){om.changeHashPage('match.html')});
+	 $("#chart_menu").find("#mygame").on("vclick" ,function(){om.changeHashPage('mygame.html')});
+	 $("#chart_menu").find("#chart").on("vclick" ,function(){om.changeHashPage('chart.html')});
+	 $("#chart_menu").find("#friend").on("vclick" ,function(){om.changeHashPage('friend.html')});
+	 $("#chart_menu").find("#messages").on("vclick" ,function(){om.changeHashPage('messages.html')});*/
+	 
+	 
 	//页面初始化
 	chart.plotLoad();
-	//打开面板
-	$("#chart_menu_a").bind("vclick", function () {
-			$( "#chart_panel" ).panel( "open" );
-		});
-	//右滑动，打开菜单
-	 $("#chart_header").bind("swiperight", function () {
-			$( "#chart_panel" ).panel( "open" );
-		});
+	
 });

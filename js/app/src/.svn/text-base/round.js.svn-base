@@ -14,6 +14,7 @@ matchRound.searchRound=function(touramentid,touramentname){
 		url:om.pubUrl()+"GetTouramentRounds?TouramentId="+touramentid,
 		dataType:"jsonp",
 		jsonpCallback:"call",
+		timeout:10000,
 		success: function(data){
 				// parse json to js json
 				var returnData=eval(data);

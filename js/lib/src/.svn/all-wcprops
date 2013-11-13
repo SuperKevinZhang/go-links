@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 69
-/svn/INDEED/!svn/ver/2601/06-Project%20Home/goMember-html5/js/lib/src
+/svn/INDEED/!svn/ver/2791/06-Project%20Home/goMember-html5/js/lib/src
 END
 jquery.mobile-1.3.2.js
 K 25
@@ -21,6 +21,12 @@ svn:wc:ra_dav:version-url
 V 84
 /svn/INDEED/!svn/ver/2404/06-Project%20Home/goMember-html5/js/lib/src/jqm-spinbox.js
 END
+jquery.touchSwipe.js
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/INDEED/!svn/ver/2791/06-Project%20Home/goMember-html5/js/lib/src/jquery.touchSwipe.js
+END
 jquery.js
 K 25
 svn:wc:ra_dav:version-url
@@ -32,4 +38,10 @@ K 25
 svn:wc:ra_dav:version-url
 V 77
 /svn/INDEED/!svn/ver/2457/06-Project%20Home/goMember-html5/js/lib/src/purl.js
+END
+fastclick.js
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/INDEED/!svn/ver/2783/06-Project%20Home/goMember-html5/js/lib/src/fastclick.js
 END
