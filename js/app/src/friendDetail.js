@@ -79,84 +79,90 @@ frienddetail.loadData=function(memberid){
 
 // pk game method 
 frienddetail.PKgame=function(){
-		om.showloading("正在加载，请稍等……");
-		// get the login username
-		var userName = window.localStorage.getItem("name");
-		
-		// get the selected Handicap 
-		// var handicapValue= $("#fd_Handicap option:selected").val();
-
-		// invoke ajax menu
-		$.ajax({
-                type: "get",
-                url: om.pubUrl()+"GetCompare?WhitePlayer="+currentPlayer+"&BlackPlayer="+userName+"&Handicap=",
-                dataType: "jsonp",
-                jsonpCallback: "call",
-				timeout:10000,
-                success: function (data) {
-					//data解析为JSON数据
-					var returnData=eval(data);
-
-					 //访问成功
-					 if(returnData.Status=="OK"){
-						 // declare a variable with whick to build our output
-						var output='';
-						var returnList=returnData.returnValue;
-						
-						// iterate the data
-						$.each(returnList,function(index,value){
-							//*******
-							output+= "<li><a class=\"a_PKresult\"  href=\"#\" >";
-							output+="<h2>胜算："+value.BProbality+"</h2>";
-							output+="<p><strong>棋份:"+value.Handicap+"  让子数/贴目数:"+value.Stone+"</strong></p>";
-							output+="</a>";
-							output+="</li> ";
-						});
-						
-						// empty listview and refresh
-						$('#fd_list_PKResult').empty().append(output).listview('refresh');
-						  
-						om.hideloading();					
-					}else{
-						//得到错误提示信息
-						var msg=data.Message;
-						om.showloading(msg,true);
+		try{
+			om.showloading("正在加载，请稍等……");
+			// get the login username
+			var userName = window.localStorage.getItem("name");
+			
+			// get the selected Handicap 
+			// var handicapValue= $("#fd_Handicap option:selected").val();
+	
+			// invoke ajax menu
+			$.ajax({
+					type: "get",
+					url: om.pubUrl()+"GetCompare?WhitePlayer="+currentPlayer+"&BlackPlayer="+userName+"&Handicap=",
+					dataType: "jsonp",
+					jsonpCallback: "call",
+					timeout:10000,
+					success: function (data) {
+						//data解析为JSON数据
+						var returnData=eval(data);
+	
+						 //访问成功
+						 if(returnData.Status=="OK"){
+							 // declare a variable with whick to build our output
+							var output='';
+							var returnList=returnData.returnValue;
+							
+							// iterate the data
+							$.each(returnList,function(index,value){
+								//*******
+								output+= "<li><a class=\"a_PKresult\"  href=\"#\" >";
+								output+="<h2>胜算："+value.BProbality+"</h2>";
+								output+="<p><strong>棋份:"+value.Handicap+"  让子数/贴目数:"+value.Stone+"</strong></p>";
+								output+="</a>";
+								output+="</li> ";
+							});
+							
+							// empty listview and refresh
+							$('#fd_list_PKResult').empty().append(output).listview('refresh');
+							  
+							om.hideloading();					
+						}else{
+							//得到错误提示信息
+							var msg=data.Message;
+							om.showloading(msg,true);
+						}
+					},
+					error: function (error) {
+						om.showloading("远程访问出错",true);
 					}
-				},
-                error: function (error) {
-                    om.showloading("远程访问出错",true);
-                }
-    });
+		});
+	}
+	catch(ex){
+		om.clog("棋友PK出错:"+ex);
+	}
 };
 
 //初始化信息
 $(function(pageDom, params){
-	
-	// get the pass param
-	params=$("#omParams").data("omParams");
-	
-	var loginUserName = window.localStorage.getItem("chineseName");
-	var UserName = window.localStorage.getItem("name");
-	
-	// judge pk same person
-	if(UserName==params.memberid)	
-	{
-		// disabled the pk button
-		$('#fd_a_gamePK').addClass('ui-disabled');
+	try{
+		// get the pass param
+		params=$("#omParams").data("omParams");
+		
+		var loginUserName = window.localStorage.getItem("chineseName");
+		var UserName = window.localStorage.getItem("name");
+		
+		// judge pk same person
+		if(UserName==params.memberid)	
+		{
+			// disabled the pk button
+			$('#fd_a_gamePK').addClass('ui-disabled');
+		}
+		
+		// add pk add text
+		$("#df_btn_text").text(loginUserName+"(黑)VS" +params.membername+"(白)PK开始");
+		
+		// add pk click method
+		$("#fd_a_gamePK").unbind();
+		$("#fd_a_gamePK").bind("click",function(){
+			// pk method	
+			frienddetail.PKgame();
+		});
+		//load data
+		frienddetail.loadData(params.memberid);
 	}
-	
-	// add pk add text
-    $("#df_btn_text").text(loginUserName+"(黑)VS" +params.membername+"(白)PK开始");
-	// 
-	// var outstr="<a id=\"fd_a_gamePK\" href=\"#\" data-role=\"button\" data-icon=\"star\" >PK胜算</a>";
-	// $("#fd_gamePK").append(outstr);
-	
-	// add pk click method
-	$("#fd_a_gamePK").unbind();
-	$("#fd_a_gamePK").bind("click",function(){
-		// pk method	
-		frienddetail.PKgame();
-	});
-	//load data
-    frienddetail.loadData(params.memberid);
+	catch(ex){
+		om.clog("棋友明细加载出错:"+ex);
+	}
 });

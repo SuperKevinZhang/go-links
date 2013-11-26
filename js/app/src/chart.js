@@ -6,7 +6,7 @@ var chart={}
 //报表加载
 chart.plotLoad=function(){
 	
-	//生成报表的数组
+		//生成报表的数组
 		var prevYear=new Array();
 		//$("#chart_page").on("pageshow", '[id$="page"]', function () {
 		userName = window.localStorage.getItem("name");
@@ -117,8 +117,11 @@ $(function(){
 	 $("#chart_menu").find("#friend").on("vclick" ,function(){om.changeHashPage('friend.html')});
 	 $("#chart_menu").find("#messages").on("vclick" ,function(){om.changeHashPage('messages.html')});*/
 	 
-	 
-	//页面初始化
-	chart.plotLoad();
+	 try{
+		//页面初始化
+		chart.plotLoad();
+	}catch(ex){
+		om.clog("报表曲线加载出错:"+ex);
+	}
 	
 });

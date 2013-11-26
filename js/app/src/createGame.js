@@ -11,6 +11,7 @@ var TouramentID;
 
 // search player
 createGame.SearchPlayer=function(txt_playid){
+	try{
 		om.showloading("正在加载，请稍等……");
 		// get the login username
 		var userName = window.localStorage.getItem("name");
@@ -78,7 +79,10 @@ createGame.SearchPlayer=function(txt_playid){
                 error: function (error) {
                     om.showloading("远程访问出错",true);
                 }
-    });
+    	});
+	}catch(ex){
+		om.clog("创建棋局--加载棋友出错:"+ex);
+	}
 };
 
 // select menu 
@@ -124,8 +128,7 @@ function onSelectChange(){
 	
 // submit the form
 createGame.savegame=function(Id){	
-		var num={i:1,};
-		console.log("新增对局点击次数"+num.i++);
+	try{
 		// valide the data
 		// round
 		if($("#cg_roundNum").val().length==0)
@@ -225,6 +228,7 @@ createGame.savegame=function(Id){
 	  	var publishUrl=om.pubUrl()+"UpdateLoadResult/"+userName;
 		publishUrl+="?jsonGame={'Id':'"+Id+"','Result':'"+$("#cg_game_result option:selected").val()+"','Round':'"+$("#cg_roundNum").val()+"','GameId':'','WhitePlayer':'"+whitePlayerID+"','Handicap':'"+$("#cg_select_chess option:selected").val()+"','Stones':'"+$("#cg_stonesNum").val()+"','GameDate':'"+$("#date_game").val()+"','Position':'"+$("#cg_positionNum").val()+"','TouramentId':'"+TouramentID+"','Komi':'"+$("#cg_komiNum").val()+"','RatingFlag':'"+$("#slider_IsParticipate option:selected").val()+"','Judge':'','BlackPlayer':'"+blackPlayerID+"'}";
 
+		console.log(publishUrl);
 		// invoke ajax menu
 		$.ajax({
                 type: "get",
@@ -240,7 +244,7 @@ createGame.savegame=function(Id){
 						// declare a variable with whick to build our output
 						om.hideloading();	
 						om.showloading("新增成功",true);	
-						om.changeHashPage("mygame.html");			
+						om.changeHashPage("#mygame_page");			
 					}else{
 						//得到错误提示信息
 						var msg=data.Message;
@@ -251,6 +255,9 @@ createGame.savegame=function(Id){
                     om.showloading("远程访问出错",true);
                 }
     });
+	}catch(ex){
+		om.clog("创建对局--保存出错:"+ex);
+	}
 }
 
 // select player 
@@ -331,9 +338,6 @@ createGame.initbyUpdateGame=function(id){
                 success: function (data) {	
 					//data解析为JSON数据
 					var returnData=eval(data);
-					
-					// alert(JSON.stringify(returnData));
-					
 					 //访问成功
 					 if(returnData.Status=="OK"){
 						 
@@ -410,49 +414,55 @@ createGame.isInterger=function(n) {
         return /^[0-9]*[1-9][0-9]*$/.test(n);
     }
 
+createGame.test = function()
+{
+	alert('test alert');
+}
 //初始化登录信息
 $(function(){	
-   	// get the pass param
-	params=$("#omParams").data("omParams");
-
-    // judge Id is "" 
-	if(params.Id=='')
-	{
-		createGame.initbyCreateGame();
-	}
-	else
-	{
-		createGame.initbyUpdateGame(params.Id);
-	}
-	
-	// init common init
-	// createGame.initGameCommon();
-	
-	// search text change
-	$('.cg_player').on('input',function(e){ 
-		var txt_playid=$(this).attr("id");
-		txt_playtypeid=txt_playid;
-		var searchText;
-		
-		// black player
-		if(txt_playid=="cg_text_black")
+	try{
+		// get the pass param
+		params=$("#omParams").data("omParams");
+		console.log("新增对局画面加载");
+		// judge Id is "" 
+		if(params.Id!='')
 		{
-			searchText=$("#cg_text_black").val();
+			createGame.initbyUpdateGame(params.Id);
 		}
 		else
 		{
-			searchText=$("#cg_text_white").val();
+			createGame.initbyCreateGame();
 		}
-		
-		if(searchText.length>1)
-		{
-			createGame.SearchPlayer(txt_playid);
-		}
-});	
-
-	// bind the add event
-	$("#cg_savegame").unbind();  
-	$("#cg_savegame").bind("click",function(e,ui){
-		createGame.savegame(params.Id);
-	});
+		// init common init
+		// createGame.initGameCommon();
+		// search text change
+		$('.cg_player').on('input',function(e){ 
+			var txt_playid=$(this).attr("id");
+			txt_playtypeid=txt_playid;
+			var searchText;
+			
+			// black player
+			if(txt_playid=="cg_text_black")
+			{
+				searchText=$("#cg_text_black").val();
+			}
+			else
+			{
+				searchText=$("#cg_text_white").val();
+			}
+			
+			if(searchText.length>1)
+			{
+				createGame.SearchPlayer(txt_playid);
+			}
+		});	
+	
+		// bind the add event
+		$("#cg_savegame").unbind();  
+		$("#cg_savegame").bind("click",function(e,ui){
+			createGame.savegame(params.Id);
+		});
+	}catch(ex){
+		om.clog("创建棋局加载出错:"+ex);
+	}
 });

@@ -100,6 +100,12 @@ om.toggle = function (cont, jqBtn, jqContent) {
     });
 };
 
+//自定义日志
+om.clog=function (message){
+		om.hideloading();
+
+		console.log("error: "+message);
+}
 om.changeHashPage = function (hash, params) {
 
     //$('#' + hash).data("omParams", params || {});
@@ -111,13 +117,11 @@ om.changeHashPage = function (hash, params) {
 	 if(b>=0)
 	 {
 		 jsName = hash.substring(c+1,b);
-		 //om.appendJs("menu");
-		 //$.getScript("js/app/src/menu.js") ;
 		 
 	 }
 	 else if(a>=0)
 	 {
-		 jsName = hash.replace("#",""),replace("_page","")
+		 jsName = hash.replace("#","").replace("_page","")
 	 }
 	//om.appendJs(jsName);
 	$("#omParams").data("omParams", params || {});
@@ -126,9 +130,7 @@ om.changeHashPage = function (hash, params) {
 							transition : "slide"
 						});
 	//传递参数
-					
-
-	$.getScript("js/app/src/"+jsName+".js") ;
+	//$.getScript("js/app/src/"+jsName+".js") ;
 	 
 };
 // append js to head
@@ -196,6 +198,10 @@ om.pubUrl=function()
 	else if(vs==1)//正式库
 	{
 		return "http://183.129.206.88:8091/Smartlinks_Service/";
+	}
+	else
+	{
+		return "http://183.129.206.88:8090/Smartlinks_Service/";//test
 	}
 
 }

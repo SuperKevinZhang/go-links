@@ -5,9 +5,9 @@
 // 2013-10-31
 */
 var messages={}
-dashboard.loadData=function(data){
+dashboard.loadData=function(){
+	
 		// colse menu
-		//$( "#menupanel" ).panel( "toggle" );
 		om.showloading("正在加载，请稍等……");
 		$.ajax({
                 type: "get",
@@ -22,13 +22,6 @@ dashboard.loadData=function(data){
 					 if(data.Status=="OK"){
 						 //访问成功，得到用户的基础信息
 						  var infoList=data.returnValue;
-						 /* 	<div   data-theme="d" data-role="collapsible"  data-collapsed-icon="arrow-r" and 	data-expanded-icon="arrow-d">
-						   <h3>公告发布</h3>
-						   <h3>公告发布</h3>
-						   <p style="text-align:right">2013-10-10</p>
-						   <p>I'm the collapsible content. By default I'm closed, but you can click the header to open me.</p>
-						  
-						</div>*/
 						  //循环生成公告
 						  var output="";
 						  console.log("Message: " + infoList);
@@ -47,7 +40,7 @@ dashboard.loadData=function(data){
 						    $("#message_list").trigger('create');
 						    om.hideloading();						
 					}else{
-						//得到错误提示信息file:///Volumes/Macintosh%20HD/Users/indeed/Desktop/Project/I-GoMember/www/html/messages.html#menupanel
+						//得到错误提示信息
 						var msg=data.Message;
 						om.showloading(msg,true);
 					}
@@ -78,14 +71,13 @@ $(function(pageDom, params){
    $("#messages_menu").find("#messages").on("vclick" ,function(){om.changeHashPage('messages.html')});
 	   */
 	//pageDom, params
-	//alert(0);
-	params=$("#omParams").data("omParams");
-	
-	
-
-	//alert(params.type);
-	//load data
-	dashboard.loadData();
+	try{
+		//load data
+		dashboard.loadData();
+	}
+	catch(ex){
+		om.clog("Message出错:"+ex);
+	}
 	
 	
 });

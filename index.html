@@ -2,210 +2,863 @@
 <!--
 
 -->
-<html><head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="format-detection" content="telephone=no" />
 <!--       <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
 
-       <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
-       
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.theme-1.3.2.css">
-        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.structure-1.3.2.css">
-	
-		<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
-        <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.3.2.css">
-        <link rel="stylesheet" type="text/css" href="js/jqplot/jquery.jqplot.min.css">
-		<script type="text/javascript" src="js/lib/src/jquery.js"></script>
-        
-    	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-    
-        <script ype="text/javascript" src="js/loadjs.js"></script>
-        
-        <script src="js/app/src/login.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-		<!--快速点击事件-->
-		<script type="text/javascript" src="js/lib/src/fastclick.js"></script>
-        
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="stylesheet" type="text/css" href="css/index.css" />
+<link rel="stylesheet" type="text/css" href="css/jquery.mobile.theme-1.3.2.css">
+<link rel="stylesheet" type="text/css" href="css/jquery.mobile.structure-1.3.2.css">
+<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.3.2.css">
+<link rel="stylesheet" type="text/css" href="js/jqplot/jquery.jqplot.min.css">
+<script type="text/javascript" src="js/lib/src/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+<script ype="text/javascript" src="js/loadjs.js"></script>
+<script src="js/app/src/login.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<!--快速点击事件-->
+<script type="text/javascript" src="js/lib/src/fastclick.js"></script>
+
 <!--		 <script type="text/javascript" src="js/lib/src/jquery.touchSwipe.js"></script>
 -->
-        <script type="text/javascript" src="js/lib/src/jquery.mobile-1.3.2.js"></script>
-        <script type="text/javascript" src="js/lib/src/iscroll.js"></script>
+<script type="text/javascript" src="js/lib/src/jquery.mobile-1.3.2.js"></script>
+<script type="text/javascript" src="js/lib/src/iscroll.js"></script>
+<script ype="text/javascript" src="js/smart_mobile.js"></script>
+<script language="javascript" type="text/javascript" src="js/lib/src/autoIMG.js"></script>
 
-         <script ype="text/javascript" src="js/smart_mobile.js"></script>
-         
-    <script type="text/javascript" charset="utf-8">
- 	
-	//快速点击事件
-	 window.addEventListener('load', function() {
-                new FastClick(document.body);
-        }, false);
-		
-	//摄像头事件
-	var pictureSource;   // picture source
-    var destinationType; // sets the format of returned value
+<!--照片墙-->
+<link rel="stylesheet" type="text/css" href="js/photo/photoswipe.css">
+<link rel="stylesheet" type="text/css" href="js/photo/styles.css">
+<script src="js/photo/klass.min.js"></script>
+<script src="js/photo/code.photoswipe-3.0.5.js"></script>
 
-    // Wait for device API libraries to load
-    //
-    document.addEventListener("deviceready",onDeviceReady,false);
 
-    // device APIs are available
-    //
-    function onDeviceReady() {
-        pictureSource=navigator.camera.PictureSourceType;
-        destinationType=navigator.camera.DestinationType;
-    }
-    // Called when a photo is successfully retrieved
-    //
-    function onPhotoURISuccess(imageURI) {
-      // Uncomment to view the image file URI
-      // console.log(imageURI);
 
-      // Get image handle
-      //
-      var smallImage = document.getElementById('smallImage');
+<!--百度分享-->
+<script type="text/javascript" src="http://openapi.baidu.com/widget/social/1.0/share.js"></script>
+<script type="text/javascript" charset="utf-8">
 
-      // Unhide image elements
-      //
-      smallImage.style.display = 'block';
+//快速点击事件
+window.addEventListener('load', function() {
+        new FastClick(document.body);
+}, false);
 
-      // Show the captured photo
-      // The inline CSS rules are used to resize the image
-      //
-      smallImage.src = imageURI;
-	  //file=imageURI;
-	  uploadimage(imageURI);
-    }
+//摄像头事件
+var pictureSource;   // picture source
+var destinationType; // sets the format of returned value
+var photoFrom;       // judge photo from match or game
 
-    // A button will call this function
-    //
-    function capturePhoto() {
-      // Take picture using device camera and retrieve image as base64-encoded string
-      navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 25,
-        destinationType: destinationType.FILE_URI });
-    }
+// Wait for device API libraries to load
+//
+document.addEventListener("deviceready",onDeviceReady,false);
 
-    // A button will call this function
-    //
-    function getPhoto(source) {
-      // Retrieve image file location from specified source
-      navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 25,
-        destinationType: destinationType.FILE_URI,
-        sourceType: source });
-    }
-
-    // Called if something bad happens.
-    //
-    function onFail(message) {
-      //alert('上传照片失败: ' + message);
-	  console.log('选择照片: ' + message);
-    }
+// device APIs are available
+//
+function onDeviceReady() {
+	pictureSource=navigator.camera.PictureSourceType;
+	destinationType=navigator.camera.DestinationType;
+}
+// Called when a photo is successfully retrieved
+//
+function onPhotoURISuccess(imageURI) {
+	// Uncomment to view the image file URI
+	// console.log(imageURI);
 	
-	 // 显示上传进度
-    function showUploadingProgress( progressEvt ){
-        if( progressEvt.lengthComputable ){
-            navigator.notification.progressValue( Math.round( ( progressEvt.loaded / progressEvt.total ) * 100) );
-        }
-    }
-	 
-		
-	//参数：ID，不是gameid
-	function uploadimage(fileURI){
-		
-		var win = function(r) {
-		console.log("Code = " + r.responseCode);
-		console.log("Response = " + r.response);
-		console.log("Sent = " + r.bytesSent);
-		om.hideloading();
-		}
-		
-		var fail = function(error) {
-			alert("An error has occurred: Code = " + error.code);
-			console.log("upload error source " + error.source);
-			console.log("upload error target " + error.target);
-			om.showloading("上传照片失败",true);
-
-		}
-		
-		//fileURI =  largeImage.src;
-		var options = new FileUploadOptions();
-		options.fileKey="file";
-		options.fileName=fileURI.substr(fileURI.lastIndexOf('/')+1);
-		//options.mimeType="image/jpeg";
-		options.mimeType="multipart/form-data";//multipart/form-data
-		console.log(options.fileName);
-		/*var params = new Object();
-		params.value1 = "test";
-		params.value2 = "param";*/
-		
-		//options.params = params;
-		
-		userName = window.localStorage.getItem("name");
-		id = window.localStorage.getItem("gameDetail_id");
-		imageName =options.fileName;//id+"_"+userName+"_"+Number(new Date())+".jpeg";
-		var ft = new FileTransfer();
-		// 上传回调
-        //ft.onprogress = showUploadingProgress;
-		//navigator.notification.progressStart("", "当前上传进度");
-
-		 url=om.pubUrl()+"UploadImagePost/"+userName+"/"+id+"/utf-8?filename="+imageName;
-		 console.log("开始上传url:"+url);
-		 om.showloading("正在上传照片，请稍等……");
-
-		 res = ft.upload(fileURI, encodeURI(url), win, fail, options);
+	// Get image handle
+	//
+	
+	var smallImage;
+	if(photoFrom=="game")
+	{
+		smallImage= document.getElementById('smallImage');
 	}
-    </script>
+	if(photoFrom=="photo")
+	{
+		smallImage= document.getElementById('photo_smallImage');
+	}
+	// Unhide image elements
+	//
+	smallImage.style.display = 'block';
+	
+	// Show the captured photo
+	// The inline CSS rules are used to resize the image
+	//
+	
+	smallImage.src = imageURI;
+	//console.log(smallImage.src );
+	//file=imageURI;
+	uploadimage(imageURI);
+}
 
-         <script type="text/javascript">
-        	om.init();
-		</script>
-    <title>假日围棋社</title>
-    </head>
-    <body>
- 	 <div style="visibility:hidden" id="omParams"></div>
-      <div  data-role="page" data-tap-toggle="false" data-control-title="login" id="login_page" style="background-image:url(img/bg.gif)" >
-      <div data-role="content" style="padding: 7% ">
-          <div style="" data-controltype="image">
-              <img style="width: 100px; height: 100px" src="img/logo.png">
-          </div>
-          <h1>
-              假日围棋社
-          </h1>
-            <div class="login">
-                        <p>
-                            <input  class="inputstyle" style="padding: 10px 20px" type="text" autocomplete="on" id="txtName" name="txtName" value="CGF00"	placeholder="请输入用户名" /><i id="i_n" class="icon icon-user"></i>
-                        </p>
-                        <p>
-                            <input class="inputstyle"  style="padding: 10px 20px" type="password" autocomplete="on" id="txtPs" name="txtPs"
-                                placeholder="请输入密码" /><i id="i_m"  class="icon icon-lock"></i>
-                        </p>
-                       
+// A button will call this function
+//
+function capturePhoto(pictureFrom) {
+	photoFrom=pictureFrom;
+	// Take picture using device camera and retrieve image as base64-encoded string
+	navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 20,
+	destinationType: destinationType.FILE_URI });
+}
 
-                    </div>
-  <div data-role="fieldcontain" data-controltype="textinput">
-            <a data-role="button" id="login_login" name="login_login"  href="#"  data-transition="slide" data-icon="arrow-r" data-iconpos="right">
-              登录正式库
-          </a>
-          
-            <div data-role="fieldcontain" data-controltype="textinput">
-            <a data-role="button" id="login_login_test" name="login_login_test"  href="#"  data-transition="slide" data-icon="arrow-r" data-iconpos="right">
-              登录测试库
-          </a>
-      </div>
+// A button will call this function
+//
+function getPhoto(source,pictureFrom) {
+	photoFrom=pictureFrom;
+	// Retrieve image file location from specified source
+	navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 20,
+	destinationType: destinationType.FILE_URI,
+	sourceType: source });
+}
+
+// Called if something bad happens.
+//
+function onFail(message) {
+	//alert('上传照片失败: ' + message);
+	console.log('选择照片: ' + message);
+}
+
+// 显示上传进度
+function showUploadingProgress( progressEvt ){
+	if( progressEvt.lengthComputable ){
+		navigator.notification.progressValue( Math.round( ( progressEvt.loaded / progressEvt.total ) * 100) );
+	}
+}
+
+//参数：ID，不是gameid
+function uploadimage(fileURI){
+
+	var win = function(r) {
+	console.log("Code = " + r.responseCode);
+	console.log("Response = " + r.response);
+	console.log("Sent = " + r.bytesSent);
+	om.hideloading();
+	}
+	
+	var fail = function(error) {
+		alert("An error has occurred: Code = " + error.code);
+		console.log("upload error source " + error.source);
+		console.log("upload error target " + error.target);
+		om.showloading("上传照片失败",true);
+	
+	}
+	
+	//fileURI =  largeImage.src;
+	var options = new FileUploadOptions();
+	options.fileKey="file";
+	options.fileName=fileURI.substr(fileURI.lastIndexOf('/')+1);
+	//options.mimeType="image/jpeg";
+	options.mimeType="multipart/form-data";//multipart/form-data
+	console.log(options.fileName);
+	/*var params = new Object();
+	params.value1 = "test";
+	params.value2 = "param";*/
+	
+	//options.params = params;
+	
+	userName = window.localStorage.getItem("name");
+	id = window.localStorage.getItem("gameDetail_id");
+	imageName =options.fileName;//id+"_"+userName+"_"+Number(new Date())+".jpeg";
+	var touramentId=window.localStorage.getItem("photo_touramentId");
+	var ft = new FileTransfer();
+	// 上传回调
+	//ft.onprogress = showUploadingProgress;
+	//navigator.notification.progressStart("", "当前上传进度");
+	var url ="";
+	if(photoFrom=="game")
+	{
+		url=om.pubUrl()+"UploadImagePost/"+userName+"/"+id+"/utf-8?filename="+imageName;
+	}
+	else 
+	{
+		url=om.pubUrl()+"UploadTouramentImage/"+userName+"/"+touramentId+"/utf-8?filename="+imageName;
+		
+		//刷新新拍得照片
+		$('#imaggList').append("<li><a href=\""+fileURI+"\" rel=\"external\" class=\"ui-link\"><img src=\""+fileURI+"\" alt=\"\"></a></li>");
+	
+	setTimeout("imageRef()" , 500);
+}
+ 
+ console.log("开始上传url:"+url);
+ om.showloading("正在上传照片，请稍等……");
+
+ res = ft.upload(fileURI, encodeURI(url), win, fail, options);
+}
+</script>
+<script type="text/javascript">
+om.init();
+$(function(){
+
+  if (navigator.userAgent.indexOf("Android") != -1)   
+   {   
+	 $.mobile.defaultPageTransition = 'none';   
+	 $.mobile.defaultDialogTransition = 'none';   
+}   
+
+	//我的工作区 创建时加载
+	$('#dashboard_page').on("pagecreate",function(){ 
+		$.getScript("js/app/src/dashboard.js") ;
+	})
+	
+	//我的对局 创建时加载
+	$('#mygame_page').on("pageshow",function(){ 
+		$.getScript("js/app/src/mygame.js") ;
+	})
+	//对局明细
+	$('#gameDetail_page').on("pageshow",function(){ 
+		$.getScript("js/app/src/gameDetail.js") ;
+
+	})
+	//对局列表
+	$('#roundgame_page').on("pageshow",function(){ 
+		$.getScript("js/app/src/roundgame.js") ;
+
+	})
+	//比赛轮次
+	$('#round_page').on("pageshow",function(){ 
+		$.getScript("js/app/src/round.js") ;
+
+	})
+	//照片墙
+	$('#photo_page').on("pagebeforeshow",function(){ 
+		$.getScript("js/app/src/photo.js") ;
+
+	})
+	//消息
+	$('#messages_page').on("pagecreate",function(){ 
+		$.getScript("js/app/src/messages.js") ;
+
+	})
+	
+	//比赛
+	$('#match_page').on("pageshow",function(){ 
+		$.getScript("js/app/src/match.js") ;
+
+	})
+	
+	//棋友明细
+	$('#friendDetail_page').on("pageshow",function(){ 
+		$.getScript("js/app/src/friendDetail.js") ;
+
+	})
+	
+	//棋友
+	$('#friend_page').on("pagecreate",function(){ 
+		$.getScript("js/app/src/friend.js") ;
+
+	})
+	
+	//创建对局
+	$('#creategame_page').on("pageshow",function(){ 
+		$.getScript("js/app/src/createGame.js") ;
+	
+	})
+	//报表chart
+	$('#chart_page').on("pagecreate",function(){ 
+		$.getScript("js/app/src/chart.js") ;
+
+	})
+	
+	//我要入伙
+	$('#joinus_page').on("pageshow",function(){ 
+		$.getScript("js/app/src/joinus.js") ;
+
+	})
+	
+	
+});
+   // $("#dashboard_page" ).on( "pageshow", function( event ) { alert(2) } )
+</script>
+<title>假日围棋社</title>
+</head>
+<body>
+<div style="visibility:hidden" id="omParams"></div>
+
+<!--登陆画面-->
+<div  data-role="page" data-tap-toggle="false" data-control-title="login" id="login_page" style="background-image:url(img/bg.gif)" >
+  <div data-role="content" style="padding: 7% ">
+    <div style="" data-controltype="image"> <img style="width: 100px; height: 100px" src="img/logo.png"> </div>
+    <h1> 假日围棋社 </h1>
+    <div class="login">
+      <p>
+        <input  class="inputstyle" style="padding: 10px 20px" type="text" autocomplete="on" id="txtName" name="txtName" value="CGF00"	placeholder="请输入用户名" />
+        <i id="i_n" class="icon icon-user"></i> </p>
+      <p>
+        <input class="inputstyle"  style="padding: 10px 20px" type="password" autocomplete="on" id="txtPs" name="txtPs"
+                                    placeholder="请输入密码" />
+        <i id="i_m"  class="icon icon-lock"></i> </p>
+    </div>
     
+      <div data-role="controlgroup" style="text-align:right" data-type="horizontal">
+        <a data-role="button"   href="#joinus_page"  data-transition="slide" data-icon="arrow-u" > 我要入伙 </a> 
+
+        <a data-role="button" id="login_login"  href="#"   data-icon="check" > 登录 </a>
+        
+        <a data-role="button" id="login_login_test"  href="#"  data-icon="check" > 测试 </a> 
+        
+
+    </div> 
+    
+   
+     </div>
+</div>
+<!--我的工作区-->
+<div data-theme="a" data-role="page" data-tap-toggle="false" data-position="fixed" data-control-title="dashboard" id="dashboard_page">
+  <div data-role="panel" id="dashboard_menupanel"  data-position-fixed="true" data-position="left" data-display="reveal"
+      data-theme="a">
+    <ul  id="dashboard_menu" name="dashboard_menu" data-role="listview" data-divider-theme="h" data-inset="false">
+      <li data-role="list-divider" role="heading">菜单</li>
+      <li data-theme="a"><a id="dashboard" href="#" onclick="om.changeHashPage('#dashboard_page')" data-transition="none" class="icon icon-rocket"> 我的轨迹</a></li>
+      <li data-theme="a"><a id="match" href="#" onclick="om.changeHashPage('#match_page')" data-transition="none" class="icon icon-fire"> 比赛</a></li>
+      <li data-theme="a"><a id="mygame" href="#" onclick="om.changeHashPage('#mygame_page')" data-transition="none" class="icon icon-coffee"> 我的对局</a></li>
+      <li data-theme="a"><a id="chart" href="#" onclick="om.changeHashPage('#chart_page')" data-transition="none" class="icon icon-gift"> 积分动态</a></li>
+      <li data-theme="a"><a id="friend" href="#" onclick="om.changeHashPage('#friend_page')" data-transition="none" class="icon icon-user"> 棋友</a></li>
+      <li data-theme="a"><a id="messages" href="#" onclick="om.changeHashPage('#messages_page')" data-transition="none" class="icon icon-bell"> 消息</a></li>
+      <li data-theme="a"><a id="login_page" href="#login_page" data-transition="none" class="icon icon-reply"> 退出</a></li>
+    </ul>
   </div>
- </div>
- <script src="js/jqplot/jquery.jqplot.min.js"></script>
-<script src="js/jqplot/jqplot.dateAxisRenderer.min.js"></script>
-<script src="js/jqplot/jqplot.logAxisRenderer.min.js"></script>
-<script src="js/jqplot/jqplot.canvasTextRenderer.min.js"></script>
-<script src="js/jqplot/jqplot.canvasAxisTickRenderer.min.js"></script>
-<script src="js/jqplot/jqplot.cursor.min.js"></script>
-<script src="js/jqplot/jqplot.pointLabels.min.js"></script>
-<script src="js/jqplot/jqplot.highlighter.min.js"></script>
+  <div data-theme="a" data-role="header" data-position="fixed" id="dashboard_header"> <a data-controltype="panelbutton" id = "dashboard_menu_a" data-role="button" href="#dashboard_menupanel" data-icon="bars"
+           data-wrapperels="span"  class="ui-btn-left">菜单 </a>
+    <h3> 我的轨迹 </h3>
+  </div>
+  <div  data-role="content">
+    <table class="nav">
+      <tbody>
+        <tr>
+          <td colspan="4" class="nav_item l" onclick="om.changeHashPage('#chart_page')"><i class="icon icon-gift"></i>
+            <h1 id="db_score" name = "db_score" class="items_data">0</h1>
+            <br>
+            <h2 class="items_name">当前积分</h2></td>
+        </tr>
+        <tr>
+          <td colspan="2" class="nav_item m" ><i class="icon icon-list-ol"></i>
+            <h1 id="db_index" name = "db_index"  class="items_data">0</h1>
+            <h2 class="items_name">我的排名</h2></td>
+          <td colspan="2" class="nav_item m" ><i class="icon icon-user"></i>
+            <h1 id="db_frends" name = "db_frends"  class="items_data">0</h1>
+            <h2 class="items_name">手谈棋友数</h2></td>
+        </tr>
+        <tr>
+          <td colspan="2" class="nav_item m" onclick="om.changeHashPage('#mygame_page')"><i class="icon icon-coffee"></i>
+            <h1 id="db_games" name = "db_games"  class="items_data">0</h1>
+            <h2 class="items_name">对局数</h2></td>
+          <td  colspan="2" class="nav_item s" onclick="om.changeHashPage('#match_page')" ><i class="icon icon-star"></i>
+            <h1 id="db_activity" name = "db_activity" class="items_data">0</h1>
+            <h2 class="items_name">活动次数</h2></td>
+            </td>
+        </tr>
+        <tr>
+          <td colspan="4" class="nav_item l" ><i class="icon icon-calendar"></i>
+            <h1 id="db_jointime" name = "db_jointime"  class="items_data">0</h1>
+            <br>
+            <h2 class="items_name">入会时间</h2></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!--我的对局-->
+<div data-theme="a"  data-role="page" data-control-title="mygame" id="mygame_page" data-dom-cache="true" data-position="fixed" data-dom-cache="true">
+<div data-role="panel" data-position-fixed=true id="mygame_Panel" data-position="left" data-display="reveal"
+      data-theme="a">
+  <ul  id="mygame_menu" name="mygame_menu" data-role="listview" data-divider-theme="h" data-inset="false">
+  <li data-role="list-divider" role="heading">菜单</li>
+      <li data-theme="a"><a id="dashboard" href="#" onclick="om.changeHashPage('#dashboard_page')" data-transition="none" class="icon icon-rocket"> 我的轨迹</a></li>
+      <li data-theme="a"><a id="match" href="#" onclick="om.changeHashPage('#match_page')" data-transition="none" class="icon icon-fire"> 比赛</a></li>
+      <li data-theme="a"><a id="mygame" href="#" onclick="om.changeHashPage('#mygame_page')" data-transition="none" class="icon icon-coffee"> 我的对局</a></li>
+      <li data-theme="a"><a id="chart" href="#" onclick="om.changeHashPage('#chart_page')" data-transition="none" class="icon icon-gift"> 积分动态</a></li>
+      <li data-theme="a"><a id="friend" href="#" onclick="om.changeHashPage('#friend_page')" data-transition="none" class="icon icon-user"> 棋友</a></li>
+      <li data-theme="a"><a id="messages" href="#" onclick="om.changeHashPage('#messages_page')" data-transition="none" class="icon icon-bell"> 消息</a></li>
+      <li data-theme="a"><a id="login_page" href="#login_page" data-transition="none" class="icon icon-reply"> 退出</a></li>
+  </ul>
+</div>
+<div data-theme="a" data-id="header"  data-role="header" id="mygame_header" data-position="fixed"> <a data-controltype="panelbutton" data-role="button" id="mygame_menu_a" href="#mygame_Panel" data-icon="bars"
+          class="ui-btn-left">菜单 </a>
+  <h3> 我的对局 </h3>
+  <a href="#" id="mygame_a_creategame" data-icon="plus" class="ui-btn-right">新增</a> </div>
+<div data-role="content" role="main">
+  <ul data-theme="c" data-role="listview" data-inset="true" id="mygame_list">
+  </ul>
+  <!-- 分页加载--> 
+  <a href="#" data-role="button" id="showmore" style="display:none">点击显示更多</a> </div>
+</div>
+<!--对局明细--> 
+　
+<div data-role="page"  data-theme="a" id="gameDetail_page" data-position="fixed"  data-add-back-btn="true" >
+  <div data-role="header" data-id="header"   data-position="fixed"> <a href="#" id="gameDetail_back" data-icon="back" data-rel="back"  class="ui-btn-left">返回</a>
+    <h3>对局明细</h3>
+    <a id="gd_a_gameShare" href="#" data-icon="arrow-u" class="ui-btn-right">分享</a> </div>
+  <div data-role="content">
+    <div class="ui-grid-a" id="gameInfo">
+      <div class="ui-block-a">
+        <h1 id="gd_h_username">CASUAL赛事</h1>
+        <h2>对局信息</h2>
+        <ul id="ul_personInfo">
+          <li id="gd_p_roundPosition">轮次、台次</li>
+          <li id="gd_li_rule">对局规则</li>
+          <li id="gd_li_handicap">棋份</li>
+          <li id="gd_li_stones">让子数</li>
+          <li id="gd_li_komi">贴目数</li>
+          <li id="gd_li_ratingFlag">是否参与积分</li>
+        </ul>
+      </div>
+      <div class="ui-block-b" id="autoImage" style="max-height:150px; max-width:150px">
+        <a href="#gameDetail_popupMenu" data-rel="popup" data-icon="star" class="ui-btn-right"><img id="smallImage"  src="img/person.png" style="margin-left:30px" id="img_person" /></a>
+
+      </div>
+        <div data-role="popup" id="gameDetail_popupMenu" >
+            <ul id="photo_pathway" data-role="listview" data-inset="true" style="min-width:80px;" data-theme="c">
+                <li><a href="#" id="gameDetail_pic"  ><i class="icon icon-camera"></i></a></li>
+                <li><a href="#" id="gameDetail_file" ><i class="icon icon-folder-open"></i></a></li>
+                <li><a href="#" id="gameDetail_picList" ><i id="imageCount" class="icon icon-tags"></i></a></li>
+
+            </ul>
+		</div>
+      <!--<div id="gameDetail_selectPic" class="ui-grid-b" style="display:none" >
+        <div class="ui-block-a"  style="margin-left:30px; margin-top:2px; width:50px" id="gameDetail_pic">
+          <div class="ui-bar ui-bar-e" style="height:20px"><i class="icon icon-camera"></i></div>
+        </div>
+        <div class="ui-block-b"  style=" margin-top:2px ;width:50px"  >
+          <div id="gameDetail_file" class="ui-bar ui-bar-e" style="height:20px"><i class="icon icon-folder-open"></i></div>
+        </div>
+        <div class="ui-block-b"  style=" margin-top:2px ;width:60px"  >
+          <div id="gameDetail_picList" class="ui-bar ui-bar-e" style="height:20px"><i id="imageCount" class="icon icon-tags"></i></div>
+        </div>
+      </div>-->
+      <!-- /grid-a --> 
+      
+    </div>
+    <hr/>
+    <div  id="gameResult">
+      <h2>对局结果</h2>
+      <ul id="ul_gameresult">
+        <li id="gd_p_gameResult">对局结果</li>
+        <li id="gd_p_blackplayer">执黑</li>
+        <li id="gd_p_whiteplayer">直白</li>
+      </ul>
+    </div>
+    <hr/>
+    <div id="gameComfirm"> <a id="gd_a_gameComfirm" href="#" data-role="button" data-icon="gear" >对局确认</a> </div>
+  </div>
+  <!-- /content --> 
+  　</div>
+<!-- /page --> 
+
+<!--对局列表-->
+<div data-theme="a" data-role="page" id="roundgame_page" data-add-back-btn="true"  data-dom-cache="true">
+	<div data-role="header" data-id="match_header"   data-position="fixed">
+        <a href="#" data-icon="back" id="roundgame_back" data-rel="back" class="ui-btn-left">返回</a>
+    	<h3>对局列表</h3>
+    </div>
+    <div data-role="content">
+		<ul data-theme="c" data-role="listview" data-inset="true" id="roundgame_list">
+         
+        </ul>
+    </div>
+</div>  
+
+<!--比赛轮次-->
+<div data-theme="a" id="round_page" data-role="page" data-add-back-btn="true"  data-dom-cache="true">
+    <div data-role="header" data-id="match_header"  data-position="fixed">
+        <a href="#" data-icon="back" id="round_back" data-rel="back" class="ui-btn-left">返回</a>
+        <h3>比赛轮次</h3>
+    </div>
+  <div data-role="content">
+    <ul data-theme="c" data-role="listview" data-inset="true" id="round_list">
+    </ul>
+  </div>
+</div>      
+
+<!--照片墙-->
+<div  id="photo_page" data-role="page"  data-position="fixed" data-add-back-btn="true" class="gallery-page">
+	<div data-role="header"  data-position="fixed">
+        <a href="#"  data-icon="back" data-rel="back"  class="ui-btn-left">返回</a>
+    	<h3>照片墙</h3>
+        <a href="#photo_popupMenu" id="photo_graph" data-rel="popup" data-icon="star" class="ui-btn-right">拍照</a>
+        <div data-role="popup" id="photo_popupMenu" >
+            <ul id="photo_pathway" data-role="listview" data-inset="true" style="min-width:80px;" data-theme="c">
+                <li><a href="#" id="photo_takePicture" onClick="photo.getimage('camera')"><i class="icon icon-camera"></i></a></li>
+                <li><a href="#" id="photo_local" onClick="photo.getimage('location')"><i class="icon icon-folder-open"></i></a></li>
+            </ul>
+		</div>
+    </div>
+    <div data-role="content" >
+   		 <div id="photo">
+            <div >
+         	</div>
+             <div id="autoImage"  style=" display:none">
+                <p><img id="photo_smallImage"  src="img/person.png" style="  margin-left:30px;"  /></p>
+             </div>
+             <div id="photo_selectPic" class="ui-grid-b" style="display:none" >
+                <div class="ui-block-a"  style="margin-left:30px; margin-top:2px; width:50px" id="photo_pic"><div class="ui-bar ui-bar-e" style="height:20px"><i class="icon icon-camera"></i></div></div>
+                <div class="ui-block-b"  style=" margin-top:2px ;width:50px"  ><div id="photo_file" class="ui-bar ui-bar-e" style="height:20px"><i class="icon icon-folder-open"></i></div></div>
+			</div><!-- /grid-a -->
+         </div>
+              <hr/>
+    	<div>
+    		<ul class="gallery" id="imaggList">
+			</ul>
+                    <!-- 分页加载-->
+        <a href="#" data-role="button" id="photo_showmore" style="display:none">点击显示更多</a>
+        </div>
+    </div>
+</div>
+  
+<!--消息-->
+<div  data-theme="a" data-role="page"  data-position="fixed" data-control-title="dashboard" id="messages_page" >
+  <div data-role="panel"  data-position-fixed=true id="messages_menupanel" data-position="left" data-display="reveal"
+  data-theme="a">
+        <ul  id="messages_menu" name="messages_menu" data-role="listview" data-divider-theme="h" data-inset="false">
+          <li data-role="list-divider" role="heading">菜单</li>
+  <li data-theme="a"><a id="dashboard" href="#" onclick="om.changeHashPage('#dashboard_page')" data-transition="none" class="icon icon-rocket"> 我的轨迹</a></li>
+  <li data-theme="a"><a id="match" href="#" onclick="om.changeHashPage('#match_page')" data-transition="none" class="icon icon-fire"> 比赛</a></li>
+  <li data-theme="a"><a id="mygame" href="#" onclick="om.changeHashPage('#mygame_page')" data-transition="none" class="icon icon-coffee"> 我的对局</a></li>
+  <li data-theme="a"><a id="chart" href="#" onclick="om.changeHashPage('#chart_page')" data-transition="none" class="icon icon-gift"> 积分动态</a></li>
+  <li data-theme="a"><a id="friend" href="#" onclick="om.changeHashPage('#friend_page')" data-transition="none" class="icon icon-user"> 棋友</a></li>
+  <li data-theme="a"><a id="messages" href="#" onclick="om.changeHashPage('#messages_page')" data-transition="none" class="icon icon-bell"> 消息</a></li>
+  <li data-theme="a"><a id="login_page" href="#login_page" data-transition="none" class="icon icon-reply"> 退出</a></li>
+      </ul>
+  </div>
+  <div data-theme="a"  data-role="header" data-position="fixed" id="messages_header">
+      <a data-controltype="panelbutton" data-role="button" id="messsages_menu_a" href="#messages_menupanel" data-icon="bars"
+      class="ui-btn-left">菜单
+      </a>
+      <h3>
+          消息
+      </h3>
+  </div>
+  <div id="msg_content" data-role="content" >
+  <div data-role="collapsible-set" id="message_list">
+  </div>
+  
+  </div>
+</div>  
+  
+<!--比赛-->
+<div data-theme="a"  data-role="page" data-control-title="dashboard"  data-position="fixed" id="match_page" data-dom-cache="true" >
+  <div data-role="panel"  data-position-fixed=true id="match_panel" data-position="left" data-display="reveal"
+  data-theme="a">
+        <ul  id="match_menu" name="match_menu" data-role="listview" data-divider-theme="h" data-inset="false">
+        
+       <li data-role="list-divider" role="heading">菜单</li>
+  <li data-theme="a"><a id="dashboard" href="#" onclick="om.changeHashPage('#dashboard_page')" data-transition="none" class="icon icon-rocket"> 我的轨迹</a></li>
+  <li data-theme="a"><a id="match" href="#" onclick="om.changeHashPage('#match_page')" data-transition="none" class="icon icon-fire"> 比赛</a></li>
+  <li data-theme="a"><a id="mygame" href="#" onclick="om.changeHashPage('#mygame_page')" data-transition="none" class="icon icon-coffee"> 我的对局</a></li>
+  <li data-theme="a"><a id="chart" href="#" onclick="om.changeHashPage('#chart_page')" data-transition="none" class="icon icon-gift"> 积分动态</a></li>
+  <li data-theme="a"><a id="friend" href="#" onclick="om.changeHashPage('#friend_page')" data-transition="none" class="icon icon-user"> 棋友</a></li>
+  <li data-theme="a"><a id="messages" href="#" onclick="om.changeHashPage('#messages_page')" data-transition="none" class="icon icon-bell"> 消息</a></li>
+  <li data-theme="a"><a id="login_page" href="#login_page" data-transition="none" class="icon icon-reply"> 退出</a></li>
+      </ul>
+  </div>
+  <div data-theme="a" data-id="match_header" data-role="header" data-position="fixed" id="match_header">
+      <a data-controltype="panelbutton" data-role="button" id="match_menu_a" href="#match_panel" data-icon="bars"
+       class="ui-btn-left">菜单
+      </a>
+      <h3>
+          比赛
+      </h3>
+  </div>
+  <div data-role="content">
+    <ul data-theme="c" data-role="listview" data-inset="true" id="myMatch_list">
+    <!--	<li data-role="list-divider">正在进行的比赛 <span class="ui-li-count">2</span></li>
+        <li><a class="a_myGame"  rel="external" href="#" id="a_game" data-ajax="false" rel="external">
+            <h2>上海围棋联赛</h2>
+            <p><strong>可报名</strong></p>
+            <p>轮次/对局数：10/200</p>
+            <p class='ui-li-aside'><strong>2012-9-12</strong></p>
+            </a>
+        </li> -->
+    </ul>
+  </div>
+</div>   
+
+<!--棋友明细-->  
+<div data-theme="a" id="friendDetail_page" data-role="page" data-position="fixed" data-add-back-btn="true" >
+	<div data-role="header" data-id="friend_header"   data-position="fixed">
+        <a href="#" id ="friendDetail_back" data-icon="back"  data-rel="back"  class="ui-btn-left">返回</a>
+    	<h3>棋友明细</h3>
+    </div>
+    <div data-role="content">
+    	<div class="ui-grid-a" id="gameInfo">
+        	<div class="ui-block-a">
+                <p ><strong id="fd_p_account">会员账号</strong></p>
+                <p><strong>个人信息</strong></p>
+                    <ul id="fd_ul_personInfo">
+                        <li id="fd_li_gender">性别</li>
+                        <li id="fd_li_grade">段位</li>
+                        <li id="fd_li_integral">积分</li>
+                        <li id="fd_li_gamecount">对局数</li>
+                    </ul>
+             </div>
+             <div class="ui-block-b">
+             <br>
+             <br>
+              <h1 id="fd_h_username">XXX</h1>
+             <!--	<p><img src="../res/icon/ios/person.jpg" id="img_person" width="100" height="100"/></p>-->
+             </div>
+        </div>
+        
+        <hr/>
+        
+        <div  id="fd_contactInfo" style="text-align:left">       	
+        	<h2>联系方式</h2>
+            <a href="#" id="fd_a_tel" data-role="button" ><i class="icon-phone pull-left" id="fd_i_tel"></i></a>
+            <a href="#" id="fd_a_email" data-role="button" ><i class="icon-envelope pull-left" id="fd_i_email"></i></a> 
+        </div>
+        
+        <hr/>
+        
+        <div id="fd_gamePK">
+        	<h2>PK胜算</h2>
+<!--            <label for="fd_Handicap" class="select">棋份:</label>
+            <select name="fd_Handicap" id="fd_Handicap" data-native-menu="false">
+                <option>棋份</option>
+                <option value="让子">让子</option>
+                <option value="让先">让先</option>
+                <option value="分先">分先</option>
+            </select>-->
+        	<a id="fd_a_gamePK" href="#" data-role="button" data-icon="star" > 
+            	<span class="ui-btn-inner ui-btn-corner-all">
+    				<span class="ui-btn-text" id="df_btn_text"></span>
+  				</span>
+  			</a>
+        </div>
+        <div>
+			<ul data-theme="c" data-role="listview" data-inset="true" id="fd_list_PKResult">
+        	</ul>
+        </div>
+    </div>
+</div>  
+
+<!--棋友-->
+<div data-theme="a" data-role="page" data-position="fixed" data-control-title="dashboard" id="friend_page" data-dom-cache="true" >
+    	<!--段位页面处理-->
+		<style type="text/css">
+        	.spanDW {
+				display:-moz-inline-box;
+				display:inline-block;
+				width:50px;
+				text-align:center;
+				text-shadow:none;
+			}
+        </style>
+      <div data-role="panel" id="friend_friendpanel" data-position-fixed=true data-position="left" data-display="reveal"
+      data-theme="a">
+            <ul id="friend_menu" name="friend_menu" data-role="listview" data-divider-theme="h" data-inset="false">
+            <li data-role="list-divider" role="heading">菜单</li>
+              <li data-theme="a"><a id="dashboard" href="#" onclick="om.changeHashPage('#dashboard_page')" data-transition="none" class="icon icon-rocket"> 我的轨迹</a></li>
+              <li data-theme="a"><a id="match" href="#" onclick="om.changeHashPage('#match_page')" data-transition="none" class="icon icon-fire"> 比赛</a></li>
+              <li data-theme="a"><a id="mygame" href="#" onclick="om.changeHashPage('#mygame_page')" data-transition="none" class="icon icon-coffee"> 我的对局</a></li>
+              <li data-theme="a"><a id="chart" href="#" onclick="om.changeHashPage('#chart_page')" data-transition="none" class="icon icon-gift"> 积分动态</a></li>
+              <li data-theme="a"><a id="friend" href="#" onclick="om.changeHashPage('#friend_page')" data-transition="none" class="icon icon-user"> 棋友</a></li>
+              <li data-theme="a"><a id="messages" href="#" onclick="om.changeHashPage('#messages_page')" data-transition="none" class="icon icon-bell"> 消息</a></li>
+              <li data-theme="a"><a id="login_page" href="#login_page" data-transition="none" class="icon icon-reply"> 退出</a></li>
+          </ul>
+      </div>
+      <div data-theme="a" data-id="friend_header" id="friend_header" data-role="header" data-position="fixed">
+          <a data-controltype="panelbutton" id="friend_menu_a" data-role="button" id="friend_menu_a" href="#friend_friendpanel" data-icon="bars"
+          class="ui-btn-left">菜单
+          </a>
+          <h3>
+              棋友
+          </h3>
+          <a id="btn_friendSearch" href="#" data-icon="search" class="ui-btn-right">查询</a>
+      </div>
+        <div  id="PageBody" data-role="content" > <!-- 页面主体-->
+        <div data-theme="b" data-role="rangeslider">
+          <!-- <input type="range" name="slider-1" id="slider-1" min="0" max="100" value="50" />-->
+            <!--<label id="price" for="gradeFrom">段位查询:</label>-->
+            <label for="gradeFrom">段位:  <span class="spanDW" id="start">5K</span> -
+                        <span class="spanDW" id="end">5K</span></label>
+            <input type="range" name="gradeFrom" id="gradeFrom" min="1" max="29" value="">
+            <input type="range" name="gradeTo" id="gradeTo" min="1" max="29" value="">
+        </div>
+
+    	<ul data-theme="c" data-role="listview" data-inset="true" id="list_friend">
+      
+        </ul>
+        <a href="#" data-role="button" id="friend_showmore" style="display:none">点击显示更多</a>
+    </div>
+</div> 
+
+<!--创建对局-->
+<div id="creategame_page" data-role="page"  data-theme="a">
+    <div data-role="header"  data-position="fixed">
+        <a href="#" data-icon="back" data-rel="back" class="ui-btn-left">返回</a>
+        <h1>对局操作</h1>
+        <a href="#" data-icon="plus" class="ui-btn-right" id="cg_savegame">保存</a>
+    </div>
+    <div data-role="content">
+    <form id="form_game">
+     <table width="95%" border="0">
+        
+        <tr>
+          <td> <label for="text_match" >赛事：</label> </td>
+          <td> <input disabled="disabled" name="text_match" id="text_match"  value="" type="text"></td>
+        </tr>
+        <tr>
+          <td><label for="cg_roundNum">轮次：</label>	</td>
+          <td>   <input class="cg_positionInterger" min="1" max="999" name="cg_roundNum" pattern="[0-9]*" id="cg_roundNum" value="" type="number"></td>
+        </tr>
+        <tr>
+          <td><label for="cg_positionNum">台次：</label>
+           </td>
+          <td><input class="cg_positionInterger" name="cg_positionNum" pattern="[0-9]*" id="cg_positionNum" value="" type="number"></td>
+        </tr>
+        <tr>
+          <td><label for="date_game">日期：</label>
+          </td>
+          <td>  <input type="date" name="date_game" id="date_game" value=""/></td>
+        </tr>
+        <tr>
+          <td><label for="cg_text_black">执黑：</label>
+            </td>
+          <td><input class="cg_player" type="search" name="cg_text_black" id="cg_text_black" value=""/>
+           <ul data-role="listview" data-inset="true" id="cg_ul_blackPlayers">
+            </ul>
+            </td>
+        </tr>
+        <tr>
+          <td><label for="cg_text_white">执白:</label></td>
+          <td>
+            <input class="cg_player" type="search" name="cg_text_white" id="cg_text_white" value=""/>
+              <ul data-role="listview" data-inset="true" id="cg_ul_whitePlayers"></td>
+        </tr>
+        <tr>
+          <td><label for="cg_select_chess">棋份：</label></td>
+          <td>
+            <select onChange="onSelectChange()" id="cg_select_chess" name="cg_select_chess">
+                <option value="R01">分先</option>
+                <option value="R02">让先</option>
+                <option value="R03">让子</option>
+            </select></td>
+        </tr>
+        <tr>
+          <td><label for="cg_stonesNum">让子数：</label></td>
+          <td>
+            <input name="cg_stonesNum" pattern="[0-9]*" id="cg_stonesNum" value="" type="number"></td>
+        </tr>
+        <tr>
+          <td><label for="cg_komiNum">贴目数：</label></td>
+          <td>
+            <input name="cg_komiNum"  id="cg_komiNum" value="" type="number"></td>
+        </tr>
+        <tr>
+          <td><label for="cg_game_result">对局结果：</label></td>
+          <td>	
+            <select  id="cg_game_result" name="cg_select_chess">
+                <option value="B">黑胜</option>
+                <option value="W">白胜</option>
+                <option value="D">平</option>
+                <option value="">进行中</option>
+            </select></td>
+        </tr>
+        <tr>
+          <td><label for="slider_IsParticipate">参与积分:</label></td>
+          <td>
+            <select name="slider_IsParticipate" id="slider_IsParticipate" >
+                <option value="true">是</option>
+                <option value="false">否</option>
+            </select></td>
+        </tr>
+      </table>
+    </form>
+    </div>
+</div>
+
+
+<!--我要入伙-->
+<div id="joinus_page" data-role="page"  data-theme="a">
+    <div data-role="header"  data-position="fixed">
+        <a href="#" data-icon="back" data-rel="back" class="ui-btn-left">返回</a>
+        <h1>我要入伙</h1>
+        <a href="#" data-icon="plus"  class="ui-btn-right" id="joinus_save">入伙</a>
+    </div>
+    <div data-role="content">
+     <table width="95%" border="0">
+        <tr>
+          <td><label for="ju_name">姓名：</label>	</td>
+          <td>   <input  min="1" max="20" required name="ju_name" id="ju_name" value="" type="text"></td>
+        </tr>
+        <tr>
+          <td><label for="ju_city">城市：</label>
+           </td>
+          <td><input  name="ju_city"  id="ju_city" value="" type="text"></td>
+        </tr>
+        <tr>
+          <td><label for="ju_tel">手机：</label>
+          </td>
+          <td>  <input type="tel"   max="20" name="ju_tel" id="ju_tel" value=""/></td>
+        </tr>
+        <tr>
+          <td><label for="ju_email">邮箱：</label>
+            </td>
+          <td><input type="email"  max="50" name="ju_email" id="ju_email" value=""/>
+            </td>
+        </tr>
+        <tr>
+          <td><label for="ju_remark">备注:</label></td>
+          <td>
+            <input   type="text" name="ju_remark" id="ju_remark" value="" placeholder="请输入你想说的信息,如我的段位"/>
+              </td>
+        </tr>       
+      </table>
+    </div>
+</div>
+
+    
+<!--积分轨迹-->    
+<div data-theme="a" data-role="page" data-position="fixed" data-control-title="dashboard" id="chart_page">
+  <div data-role="panel" id="chart_panel"  data-position-fixed=true data-position="left" data-display="reveal" 
+  data-theme="a">
+        <ul  id="chart_menu" name="chart_menu" data-role="listview" data-divider-theme="h" data-inset="false">
+            <!-- <li data-role="list-divider" role="heading">菜单</li>
+            <li data-theme="a"><a id="dashboard" href="#" data-transition="none" class="icon icon-rocket"> 我的轨迹</a></li>
+            <li data-theme="a"><a id="match" href="#"  data-transition="none" class="icon icon-fire"> 比赛</a></li>
+            <li data-theme="a"><a id="mygame" href="#"  data-transition="none" class="icon icon-coffee"> 我的对局</a></li>
+            <li data-theme="a"><a id="chart" href="#"  data-transition="none" class="icon icon-gift"> 积分动态</a></li>
+            <li data-theme="a"><a id="friend" href="#"  data-transition="none" class="icon icon-user"> 棋友</a></li>
+            <li data-theme="a"><a id="messages" href="#"  data-transition="none" class="icon icon-bell"> 消息</a></li>
+            <li data-theme="a"><a id="login_page" href="#login_page" data-transition="none" class="icon icon-reply"> 注销</a></li>-->
+            <li data-role="list-divider" role="heading">菜单</li>
+          <li data-theme="a"><a id="dashboard" href="#" onclick="om.changeHashPage('#dashboard_page')" data-transition="none" class="icon icon-rocket"> 我的轨迹</a></li>
+          <li data-theme="a"><a id="match" href="#" onclick="om.changeHashPage('#match_page')" data-transition="none" class="icon icon-fire"> 比赛</a></li>
+          <li data-theme="a"><a id="mygame" href="#" onclick="om.changeHashPage('#mygame_page')" data-transition="none" class="icon icon-coffee"> 我的对局</a></li>
+          <li data-theme="a"><a id="chart" href="#" onclick="om.changeHashPage('#chart_page')" data-transition="none" class="icon icon-gift"> 积分动态</a></li>
+          <li data-theme="a"><a id="friend" href="#" onclick="om.changeHashPage('#friend_page')" data-transition="none" class="icon icon-user"> 棋友</a></li>
+          <li data-theme="a"><a id="messages" href="#" onclick="om.changeHashPage('#messages_page')" data-transition="none" class="icon icon-bell"> 消息</a></li>
+          <li data-theme="a"><a id="login_page" href="#login_page" data-transition="none" class="icon icon-reply"> 退出</a></li>
+      </ul>
+  </div>
+  <div data-theme="a" data-role="header" data-position="fixed" id="chart_header">
+      <a data-controltype="panelbutton" data-role="button" id="chart_menu_a" href="#chart_panel" data-icon="bars"
+       class="ui-btn-left">菜单
+      </a>
+      <h3>
+          积分动态
+      </h3>
+  </div>
+  <div data-role="content">
+  <!--内容-->
+  <div style="height:95%;	background:#004986;" id="jqplot">
+        
+    </div><!-- /article -->
+  </div>    
+</div> 
+
+<script src="js/jqplot/jquery.jqplot.min.js"></script> 
+<script src="js/jqplot/jqplot.dateAxisRenderer.min.js"></script> 
+<script src="js/jqplot/jqplot.logAxisRenderer.min.js"></script> 
+<script src="js/jqplot/jqplot.canvasTextRenderer.min.js"></script> 
+<script src="js/jqplot/jqplot.canvasAxisTickRenderer.min.js"></script> 
+<script src="js/jqplot/jqplot.cursor.min.js"></script> 
+<script src="js/jqplot/jqplot.pointLabels.min.js"></script> 
+<script src="js/jqplot/jqplot.highlighter.min.js"></script> 
 <script type="text/javascript">
 	app.initialize();
 </script>
-
-    </body>
+</body>
 </html>
