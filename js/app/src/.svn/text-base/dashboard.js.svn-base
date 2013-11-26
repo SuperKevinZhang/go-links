@@ -132,8 +132,12 @@ $(function(){
 	   */
 	   
 	//om.memu("dashboard_menu");
-	//load data
-	dashboard.loadData("");
+	try{
+		//load data
+		dashboard.loadData("");
+	}catch(ex){
+		om.clog("Dashboard加载出错:"+ex);
+	}
 	
 	
 });

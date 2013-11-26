@@ -9,13 +9,18 @@ var Login={}
 //初始化Login页面事件
 //UserName是用户登录框对象  userPass是密码框对象
 Login.initLogin=function(userName,userPass){
-	userName.val(window.localStorage.getItem("name")==null?"CGF00088":window.localStorage.getItem("name"))
-	userPass.val(window.localStorage.getItem("password")==null?"13816502694":window.localStorage.getItem("password"))
+	try{
+		userName.val(window.localStorage.getItem("name")==null?"CGF00088":window.localStorage.getItem("name"))
+		userPass.val(window.localStorage.getItem("password")==null?"13816502694":window.localStorage.getItem("password"))
+	}
+	catch(ex){
+		om.clog("登陆--加载记录的用户名密码");
+	}
 }
 
 //登录按钮事件
 Login.btnLogin=function(userName,userPass){
-		
+	try{
 		om.showloading("正在登录，请稍等……");
 		$.ajax({
                 type: "get",
@@ -28,18 +33,17 @@ Login.btnLogin=function(userName,userPass){
 					 data=eval(data);
 					 //得到访问数据库的状态
 					 var status=data.Status;
-
 					 //访问成功
 					 if(status=="OK"){
+						   om.hideloading();
 						 //得到用户信用
 						  var userInfo=data.returnValue;
 						  window.localStorage.setItem("name", userName);
 						  window.localStorage.setItem("id", userInfo.Id);
 						  window.localStorage.setItem("chineseName", userInfo.ChineseName);
 						  window.localStorage.setItem("password",userPass);
-						  om.changeHashPage("dashboard.html");
-						  om.hideloading();
-						
+						  om.changeHashPage("#dashboard_page");
+
 					}else{
 						//得到错误提示信息
 						var msg=data.Message;
@@ -50,6 +54,10 @@ Login.btnLogin=function(userName,userPass){
 						om.showloading("网络异常，请检查网络",true);
                 }
             });
+		}
+	catch(ex){
+		om.clog("登陆--ajax访问服务器:"+ex);
+	}
 }
 
 Login.openDialog= function (options) {
@@ -67,23 +75,25 @@ Login.openDialog= function (options) {
     }
 //初始化登录信息
 $(function(){
-	//绑定登录按钮
-	$("#login_login").unbind();
-	$("#login_login").bind("click",function(e,ui){
-			window.localStorage.setItem("version_test", 1);
-
-			Login.btnLogin($("#txtName").val(),$("#txtPs").val());
-	});
+	try{
+		//绑定登录按钮
+		$("#login_login").unbind();
+		$("#login_login").bind("click",function(e,ui){
+				window.localStorage.setItem("version_test", 1);
+				Login.btnLogin($("#txtName").val(),$("#txtPs").val());
+		});
+		//登陆测试库
+		$("#login_login_test").unbind();
+		$("#login_login_test").bind("click",function(e,ui){
+				window.localStorage.setItem("version_test", 0);
 	
-	//登陆测试库
-	$("#login_login_test").unbind();
-	$("#login_login_test").bind("click",function(e,ui){
-			window.localStorage.setItem("version_test", 0);
-
-			Login.btnLogin($("#txtName").val(),$("#txtPs").val());
-	});
-	
-	//登录页面文本框的数据加载
-	Login.initLogin($('#txtName'),$('#txtPs'));
+				Login.btnLogin($("#txtName").val(),$("#txtPs").val());
+		});
+		//登录页面文本框的数据加载
+		Login.initLogin($('#txtName'),$('#txtPs'));
+	}
+	catch(ex){
+		om.clog("登陆出错:"+ex);
+	}
 });
 	

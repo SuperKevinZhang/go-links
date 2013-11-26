@@ -8,10 +8,8 @@ var mymatch={};
 mymatch.searchMatch=function(pageIndex){
 	// waiting dialog
     om.showloading("正在加载，请稍等……");	
-	
 	// get the login username
 	userName = window.localStorage.getItem("name");
-	
 	$.ajax({
 		type:"get",
 		url:om.pubUrl()+"GetMyTourament?username="+userName,
@@ -32,18 +30,29 @@ mymatch.searchMatch=function(pageIndex){
 					// iterate the data
 					$.each(returnList,function(index,value){
 						//******* 
-						output+= "<li><a class='list_a' onclick=\"om.changeHashPage('round.html',{touramentid:'"+value.TouramentId+"',touramentname:'"+value.ShortName+"'})\" href='#' id='mymatch_a_match' >";
+						//debugger;
+						output+= "<li><a class='list_a' onclick=\"om.changeHashPage('#round_page',{touramentid:'"+value.TouramentId+"',touramentname:'"+value.ShortName+"'})\" href='#' id='mymatch_a_match' >";
 						// output+=" <img src='img/match_96.png' class='list_image'>"
-						output+="<h2>"+value.ShortName +"</h2>";
+						output+="<h6>"+value.ShortName +"</h6>";
 						output+="<p><strong>轮次："+value.TotalRound+"</strong></p>";
 						output+="<p>"+ value.StartDate+"~"+value.EndDate +"</p>";
 						output+="<p>棋谱/照片数:"+value.SGFQty+"/"+value.PICQty+"</p>";
 						output+="<p class='ui-li-aside'><strong>"+value.StatusName+"</strong></p>";
 						output+="<span class=\"ui-li-count\">对局数:"+value.GameQty+"</span>"
 						output+="</a>";
-						output+="<a href=\"#\" data-rel=\"popup\" onclick=\"om.changeHashPage('photo.html',{touramentId:'"+value.TouramentId+"'})\" data-position-to=\"window\" data-transition=\"pop\"></a>";
+						
+						//alert(typeof());
+						
+						if(value.PICQty=="0")
+						{
+							output+="<a href=\"#\" data-rel=\"popup\" onclick=\"om.changeHashPage('#photo_page',{touramentId:'"+value.TouramentId+"'})\" data-position-to=\"window\" data-transition=\"pop\" data-icon=\"grid\" class=\"ui-disabled\"></a>";
+						}
+						else
+						{
+							output+="<a href=\"#\" data-rel=\"popup\" onclick=\"om.changeHashPage('#photo_page',{touramentId:'"+value.TouramentId+"'})\" data-position-to=\"window\" data-transition=\"pop\" data-icon=\"grid\"></a>";
+						}
 						output+="</li> ";
-					});
+					});                                          
 					
 					// empty listview and refresh
 					$('#myMatch_list').empty().append(output).listview('refresh');
@@ -84,9 +93,12 @@ $(function(){
 	 $("#match_menu").find("#chart").on("vclick" ,function(){om.changeHashPage('chart.html')});
 	 $("#match_menu").find("#friend").on("vclick" ,function(){om.changeHashPage('friend.html')});
 	 $("#match_menu").find("#messages").on("vclick" ,function(){om.changeHashPage('messages.html')});*/
-		
-	// search match
-	mymatch.searchMatch();
+	try{
+		// search match
+		mymatch.searchMatch();
+	}catch(ex){
+		om.clog("比赛加载出错:"+ex);
+	}
 	
 	
 });
